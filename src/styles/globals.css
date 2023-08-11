@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  user-select: none;
+  background-color: #0b0b0b;
+  color: #eeeeee;
+}
