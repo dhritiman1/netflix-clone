@@ -6,4 +6,6 @@ body {
   user-select: none;
   background-color: #0b0b0b;
   color: #eeeeee;
+
+  @apply min-h-screen font-light;
 }
