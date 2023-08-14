@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { SearchBar } from "./search";
+import { Button } from "./button";
 
 type Props = {
   title: string;
@@ -19,7 +20,7 @@ export const MainLayout = ({ title, children }: Props) => {
       </Head>
 
       <header className="sticky top-0 flex w-full justify-center">
-        <nav className="container flex h-16 max-w-screen-2xl items-center justify-between bg-gradient-to-b from-black to-transparent text-[16px] font-medium backdrop-blur-sm sm:space-x-0">
+        <nav className="container mx-12 flex h-16 max-w-screen-2xl items-center justify-between text-[16px] font-medium sm:space-x-0">
           <div className="flex items-center gap-6">
             <div className="cursor-pointer font-mono text-3xl font-extrabold">
               <Link href="/">
@@ -27,8 +28,8 @@ export const MainLayout = ({ title, children }: Props) => {
                   className="h-auto w-auto"
                   src="/logo.png"
                   alt="logo"
-                  width={120}
-                  height={40}
+                  width={110}
+                  height={35}
                   priority={true}
                 />
               </Link>
@@ -42,14 +43,19 @@ export const MainLayout = ({ title, children }: Props) => {
           </div>
           <div className="flex items-center gap-6">
             <SearchBar />
-            {/* <div>▲</div>
-          <div>▲</div> */}
-            <button className="rounded bg-[#E50914] px-3 py-1">Sign In</button>
+            {/* <div>▲</div>*/}
+            {/* <div>▲</div> */}
+            <Button
+              icon={null}
+              text="Sign In"
+              type="netflix"
+              handleClick={() => console.log("take to login page")}
+            />
           </div>
         </nav>
       </header>
 
-      <main className="flex w-full justify-center ">{children}</main>
+      <main className=" flex w-full justify-center">{children}</main>
 
       <footer></footer>
     </>

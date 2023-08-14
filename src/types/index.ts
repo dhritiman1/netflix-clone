@@ -31,7 +31,7 @@ export type Content = {
   vote_count: number;
 };
 
-export type MovieData = {
+export type ContentCategories = {
   discover: Content[] | undefined;
   trending: Content[] | undefined;
   topRated: Content[] | undefined;

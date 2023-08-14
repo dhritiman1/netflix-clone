@@ -3,14 +3,14 @@ import Image from "next/image";
 
 type ItemProps = {
   title: string;
-  url: string;
+  path: string;
 };
 
-const Item = ({ title, url }: ItemProps) => {
+const Item = ({ title, path }: ItemProps) => {
   return (
-    <div className="h-[140px]">
+    <div className="h-[140px] w-[250px]">
       <Image
-        src={`https://image.tmdb.org/t/p/w500/${url}`}
+        src={`https://image.tmdb.org/t/p/w500/${path}`}
         alt={title}
         height={140}
         width={250}
@@ -33,8 +33,8 @@ export const Carousel = ({ title, content }: Props) => {
         {content.map((item) => (
           <Item
             key={item.id}
-            title={item.title ?? ""}
-            url={item.backdrop_path ?? item.poster_path ?? ""}
+            title={item.title ?? item.name ?? ""}
+            path={item.poster_path ?? item.backdrop_path ?? ""}
           />
         ))}
       </div>
