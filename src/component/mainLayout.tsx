@@ -11,6 +11,24 @@ type Props = {
 };
 
 export const MainLayout = ({ title, children }: Props) => {
+  const LINKS = [
+    "FAQ",
+    "Help Center",
+    "Account",
+    "Media Center",
+    "Investor Relations",
+    "Jobs",
+    "Ways to Watch",
+    "Terms of Use",
+    "Privacy",
+    "Cookie Preferences",
+    "Corporate Information",
+    "Contact Us",
+    "Speed Test",
+    "Legal Notices",
+    "Only on Netflix",
+  ];
+
   return (
     <>
       <Head>
@@ -20,7 +38,7 @@ export const MainLayout = ({ title, children }: Props) => {
       </Head>
 
       <header className="sticky top-0 flex w-full justify-center">
-        <nav className="container mx-12 flex h-16 max-w-screen-2xl items-center justify-between text-[16px] font-medium sm:space-x-0">
+        <nav className="container mx-12 flex h-16 max-w-screen-2xl items-center justify-between text-[16px] font-medium">
           <div className="flex items-center gap-6">
             <div className="cursor-pointer font-mono text-3xl font-extrabold">
               <Link href="/">
@@ -55,9 +73,33 @@ export const MainLayout = ({ title, children }: Props) => {
         </nav>
       </header>
 
-      <main className=" flex w-full justify-center">{children}</main>
+      <main className="flex w-full justify-center">{children}</main>
 
-      <footer></footer>
+      <footer className="flex w-full justify-center text-zinc-500">
+        <section className="container mx-12 max-w-screen-2xl">
+          <p className="container my-4 max-w-screen-2xl text-[15px]">
+            Questions? Call{" "}
+            <span className="cursor-pointer hover:underline active:opacity-70">
+              000-000-000-000
+            </span>
+          </p>
+          <section className="container max-w-screen-2xl">
+            <ul className="flex max-w-[768px] flex-wrap gap-x-8 ">
+              {LINKS.map((link) => (
+                <li key={link} className="w-[140px] text-[13px] font-light ">
+                  <Link
+                    className="cursor-pointer transition-all hover:text-zinc-400"
+                    href="/"
+                  >
+                    {link}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+          <p className="mb-8 mt-12 text-[15px]">Netflix</p>
+        </section>
+      </footer>
     </>
   );
 };

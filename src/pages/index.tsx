@@ -3,8 +3,8 @@ import { getTMDBData } from "@/lib/fetcher";
 import { MainLayout } from "@/component/mainLayout";
 import { useEffect, useState } from "react";
 import { Carousel } from "@/component/carousel";
-import type { DataByCategory, ContentCategories } from "@/types";
 import { Hero } from "@/component/hero";
+import type { DataByCategory, ContentCategories } from "@/types";
 
 type Props = {
   contents: DataByCategory[];
@@ -12,7 +12,7 @@ type Props = {
 
 const Carousels = ({ contents }: Props) => {
   return (
-    <div className="mx-12 mt-12 flex h-[140px] flex-col gap-3">
+    <section>
       {contents.map((item) => (
         <Carousel
           key={item.category}
@@ -20,7 +20,7 @@ const Carousels = ({ contents }: Props) => {
           content={item.data ?? []}
         />
       ))}
-    </div>
+    </section>
   );
 };
 
@@ -46,7 +46,7 @@ export default function Home() {
 
   return (
     <MainLayout title="home">
-      <section className="container mx-8 max-w-screen-2xl">
+      <section className="container mx-12 mt-12 max-w-screen-2xl">
         <Hero content={tvData?.discover ?? []} />
         <Carousels contents={dataByCategory} />
       </section>
