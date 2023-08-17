@@ -1,7 +1,8 @@
-import type { Content } from "@/types";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Button } from "./button";
+import type { Content } from "@/types";
+import { GENRES } from "@/lib/genres";
 
 type Props = {
   content: Content[];
@@ -27,12 +28,18 @@ export const Hero = ({ content }: Props) => {
       </div>
       <div className="absolute inset-0 -z-10 h-screen w-full bg-gradient-to-b from-[#00000070] to-[#181818]"></div>
       <section className="mt-24">
-        <div className="flex h-96 max-w-screen-sm flex-col justify-end">
-          <h1 className="mb-2 text-4xl font-semibold">
+        <div className="flex h-96 max-w-screen-sm flex-col justify-end gap-[0.325rem]">
+          <h1 className=" text-4xl font-semibold">
             {randomShow?.title ?? randomShow?.name}
           </h1>
-          <div>
-            <p>{randomShow?.runtime}</p>
+          <div className="flex gap-2 text-sm font-light opacity-75">
+            <span>{randomShow?.first_air_date?.split("-")[0] ?? ""}</span>
+            {randomShow?.genre_ids?.map((id) => (
+              <span key={id + "d"} className="flex gap-2">
+                <span key={id + "s"}>|</span>
+                <span key={id}>{GENRES[id]}</span>
+              </span>
+            ))}
           </div>
           <p className="text-md line-clamp-4 h-[96px] md:text-base">
             {randomShow?.overview}
@@ -41,7 +48,7 @@ export const Hero = ({ content }: Props) => {
         <div className="my-4">
           <Button
             type="neutral"
-            icon={"▲"}
+            icon={"play"}
             text="Play"
             handleClick={() => console.log("play trailer")}
           />

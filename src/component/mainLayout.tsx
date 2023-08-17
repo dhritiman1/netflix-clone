@@ -4,6 +4,7 @@ import Image from "next/image";
 import type { ReactNode } from "react";
 import { SearchBar } from "./search";
 import { Button } from "./button";
+import { NotificationBell } from "./icons";
 
 type Props = {
   title: string;
@@ -54,15 +55,14 @@ export const MainLayout = ({ title, children }: Props) => {
             </div>
             <div className="flex gap-6">
               <div>Home</div>
-              <div>TV Show</div>
-              <div>New & Popular</div>
-              <div>My List</div>
+              <Link href={"/tv-show"}>Tv Show</Link>
+              <Link href={"/new-and-popular"}>New & Popular</Link>
+              <Link href={"/my-list"}>My List</Link>
             </div>
           </div>
           <div className="flex items-center gap-6">
             <SearchBar />
-            {/* <div>▲</div>*/}
-            {/* <div>▲</div> */}
+            <NotificationBell />
             <Button
               icon={null}
               text="Sign In"
@@ -84,7 +84,7 @@ export const MainLayout = ({ title, children }: Props) => {
             </span>
           </p>
           <section className="container max-w-screen-2xl">
-            <ul className="flex max-w-[768px] flex-wrap gap-x-8 ">
+            <ul className="flex max-w-3xl flex-wrap gap-x-12 ">
               {LINKS.map((link) => (
                 <li key={link} className="w-[140px] text-[13px] font-light ">
                   <Link

@@ -3,7 +3,7 @@ export type MediaType = "movie" | "tv";
 export type Content = {
   adult: boolean;
   backdrop_path: string | null;
-  genre_ids: string;
+  genre_ids: number[] | null;
   id: number;
   original_language: string;
   original_title: string | null;

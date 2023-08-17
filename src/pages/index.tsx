@@ -12,7 +12,7 @@ type Props = {
 
 const Carousels = ({ contents }: Props) => {
   return (
-    <section>
+    <section className="mt-12">
       {contents.map((item) => (
         <Carousel
           key={item.category}

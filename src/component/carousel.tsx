@@ -1,8 +1,7 @@
-import type { Content } from "@/types";
 import Image from "next/image";
 import { useRef, useState } from "react";
-import type { ReactNode } from "react";
 import { Left, Right } from "./icons";
+import type { Content } from "@/types";
 
 type Direction = "left" | "right";
 
@@ -67,10 +66,15 @@ export const Carousel = ({ title, content }: Props) => {
 
     carouselRef.current.scrollTo({ left: offset, behavior: "smooth" });
 
-    if (offset === -clientWidth) {
+    if (offset <= 0) {
       setIsLeftScrollable(false);
     }
-    console.log(offset, clientWidth);
+
+    if (offset >= 4500) {
+      setIsRightScrollable(false);
+    } else {
+      setIsRightScrollable(true);
+    }
   };
 
   return (
