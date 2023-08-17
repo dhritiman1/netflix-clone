@@ -2,6 +2,7 @@ import type { Content } from "@/types";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import type { ReactNode } from "react";
+import { Left, Right } from "./icons";
 
 type Direction = "left" | "right";
 
@@ -15,10 +16,10 @@ const Item = ({ title, path }: ItemProps) => {
     <Image
       src={`https://image.tmdb.org/t/p/w500/${path}`}
       alt={title}
-      height={140}
-      width={250}
+      height={168}
+      width={299}
       loading="lazy"
-      className="aspect-video h-[140px] w-[250px] cursor-pointer object-cover transition-all duration-100 hover:scale-110"
+      className="aspect-video h-[168px] w-[299px] cursor-pointer object-cover transition-all duration-100 hover:scale-110"
     />
   );
 };
@@ -33,12 +34,14 @@ const ScrollButton = ({ dir, className, handleScroll }: ScrollButtonProps) => {
   return (
     <button
       className={
-        "absolute flex h-[140px] w-[3.125rem] items-center justify-center  opacity-100 transition-all duration-100 " +
+        "absolute flex h-[168px] w-[3.125rem] items-center justify-center  opacity-100 transition-all duration-100 " +
         className
       }
       onClick={handleScroll}
     >
-      <div className="text-2xl font-bold">{dir === "left" ? "<" : ">"}</div>
+      <div className="text-2xl font-bold">
+        {dir === "left" ? <Left /> : <Right />}
+      </div>
     </button>
   );
 };
@@ -63,6 +66,11 @@ export const Carousel = ({ title, content }: Props) => {
       dir === "left" ? scrollLeft - clientWidth : scrollLeft + clientWidth;
 
     carouselRef.current.scrollTo({ left: offset, behavior: "smooth" });
+
+    if (offset === -clientWidth) {
+      setIsLeftScrollable(false);
+    }
+    console.log(offset, clientWidth);
   };
 
   return (
@@ -87,7 +95,7 @@ export const Carousel = ({ title, content }: Props) => {
 
           <div
             ref={carouselRef}
-            className="flex gap-1 overflow-y-hidden scrollbar-none"
+            className="flex h-[168px] gap-1 overflow-y-hidden scrollbar-none"
           >
             {content.map((item) => (
               <Item

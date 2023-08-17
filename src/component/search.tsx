@@ -1,5 +1,5 @@
-import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Search } from "./icons";
 
 export const SearchBar = () => {
   const [searchVisibile, setSearchVisibile] = useState(false);
@@ -33,7 +33,7 @@ export const SearchBar = () => {
         className={`cursor-pointer ${searchVisibile ? "hidden" : ""}`}
         onClick={() => setSearchVisibile(true)}
       >
-        ▲{/* <Search size={20} /> */}
+        <Search />
       </div>
     </>
   );
