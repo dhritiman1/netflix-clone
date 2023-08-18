@@ -1,32 +1,4 @@
-type Genres = {
-  28: string;
-  12: string;
-  16: string;
-  35: string;
-  80: string;
-  99: string;
-  18: string;
-  10751: string;
-  14: string;
-  36: string;
-  27: string;
-  10402: string;
-  9648: string;
-  10749: string;
-  878: string;
-  10770: string;
-  53: string;
-  10752: string;
-  37: string;
-  10759: string;
-  10762: string;
-  10763: string;
-  10764: string;
-  10765: string;
-  10766: string;
-  10767: string;
-  10768: string;
-};
+type Genres = Record<string, string>;
 
 export const GENRES: Genres = {
   28: "Action",
