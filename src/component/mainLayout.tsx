@@ -53,8 +53,8 @@ export const MainLayout = ({ title, children }: Props) => {
                 />
               </Link>
             </div>
-            <div className="flex gap-6">
-              <div>Home</div>
+            <div className="hidden gap-6 md:flex">
+              <Link href={"/home"}>Home</Link>
               <Link href={"/tv-show"}>Tv Show</Link>
               <Link href={"/new-and-popular"}>New & Popular</Link>
               <Link href={"/my-list"}>My List</Link>
@@ -62,7 +62,9 @@ export const MainLayout = ({ title, children }: Props) => {
           </div>
           <div className="flex items-center gap-6">
             <SearchBar />
-            <NotificationBell />
+            <div className="cursor-pointer active:opacity-70">
+              <NotificationBell />
+            </div>
             <Button
               icon={null}
               text="Sign In"
@@ -79,7 +81,7 @@ export const MainLayout = ({ title, children }: Props) => {
         <section className="container mx-12 max-w-screen-2xl">
           <p className="container my-4 max-w-screen-2xl text-[15px]">
             Questions? Call{" "}
-            <span className="cursor-pointer hover:underline active:opacity-70">
+            <span className="cursor-pointer hover:text-zinc-400 hover:underline active:opacity-70">
               000-000-000-000
             </span>
           </p>
@@ -97,7 +99,7 @@ export const MainLayout = ({ title, children }: Props) => {
               ))}
             </ul>
           </section>
-          <p className="mb-8 mt-12 text-[15px]">Netflix</p>
+          <p className="mb-8 mt-4 text-[15px]">© Netflix</p>
         </section>
       </footer>
     </>

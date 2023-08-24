@@ -1,4 +1,4 @@
-import { Play } from "./icons";
+import { Info, Play } from "./icons";
 
 type ButtonType = "ghost" | "neutral" | "netflix";
 
@@ -16,13 +16,13 @@ export const Button = ({ icon, text, type, handleClick }: Props) => {
   const styles = {
     neutral: "gap-1 bg-zinc-200 text-zinc-900 ",
     netflix: "bg-[#E50914] ",
-    ghost: "rounded bg-transparent border ",
+    ghost: "rounded bg-transparent border gap-1 ",
   };
 
   return (
     <>
       <button onClick={handleClick} className={styles[type] + BASE_STYLE}>
-        {icon == "play" ? <Play /> : null}
+        {icon == "play" ? <Play /> : icon === "info" ? <Info /> : null}
         <p>{text}</p>
       </button>
     </>

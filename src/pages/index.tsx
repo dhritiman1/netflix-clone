@@ -1,28 +1,12 @@
+import { useEffect, useState } from "react";
+
 import { api } from "@/utils/api";
 import { getTMDBData } from "@/lib/fetcher";
-import { MainLayout } from "@/component/mainLayout";
-import { useEffect, useState } from "react";
-import { Carousel } from "@/component/carousel";
+import type { ContentCategories } from "@/types";
+
 import { Hero } from "@/component/hero";
-import type { DataByCategory, ContentCategories } from "@/types";
-
-type Props = {
-  contents: DataByCategory[];
-};
-
-const Carousels = ({ contents }: Props) => {
-  return (
-    <section className="mt-12">
-      {contents.map((item) => (
-        <Carousel
-          key={item.category}
-          title={item.category}
-          content={item.data ?? []}
-        />
-      ))}
-    </section>
-  );
-};
+import { MainLayout } from "@/component/mainLayout";
+import { Carousels } from "@/component/carouselList";
 
 export default function Home() {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
@@ -31,7 +15,7 @@ export default function Home() {
   const [tvData, setTvData] = useState<ContentCategories | null>(null);
 
   useEffect(() => {
-    const getMovieData = (async () => {
+    const getData = (async () => {
       const movieData = await getTMDBData("movie");
       setMovieData(movieData);
       const tvData = await getTMDBData("tv");

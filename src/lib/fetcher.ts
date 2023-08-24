@@ -30,3 +30,13 @@ export const getTMDBData = async (type: MediaType) => {
     topRated: topRated?.results,
   };
 };
+
+export const getDataByGenre = async (type: MediaType, genreId: number) => {
+  const data = await fetch(
+    `https://api.themoviedb.org/3/${type}/top_rated?api_key=${env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US&with_networks=213&region=US&with_genres=${genreId}`
+  );
+
+  if (!data.ok) throw new Error(`Failed to fetch data for genreId ${genreId}`);
+  const jsonData = (await data.json()) as { results: Content[] };
+  return jsonData.results;
+};

@@ -1,8 +1,10 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
+
 import { Button } from "./button";
-import type { Content } from "@/types";
+
 import { GENRES } from "@/lib/genres";
+import type { Content } from "@/types";
 
 type Props = {
   content: Content[];
@@ -45,12 +47,18 @@ export const Hero = ({ content }: Props) => {
             {randomShow?.overview}
           </p>
         </div>
-        <div className="my-4">
+        <div className="my-4 flex gap-x-4">
           <Button
             type="neutral"
             icon={"play"}
             text="Play"
             handleClick={() => console.log("play trailer")}
+          />
+          <Button
+            type="ghost"
+            icon="info"
+            text="More Info"
+            handleClick={() => console.log("show the movie page")}
           />
         </div>
       </section>
