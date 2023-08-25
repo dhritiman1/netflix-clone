@@ -84,7 +84,7 @@ export const Carousel = ({ title, content }: Props) => {
         <div className="relative">
           {isLeftScrollable && (
             <ScrollButton
-              className="left-0 top-0 z-10 bg-gradient-to-r from-[#181818] to-[#18181875] hover:from-[#181818]"
+              className="left-0 top-0 z-10 bg-gradient-to-r from-[#181818] to-[#18181875] hover:from-[#181818] hover:to-[#18181890]"
               dir="left"
               handleScroll={() => scroll("left")}
             />

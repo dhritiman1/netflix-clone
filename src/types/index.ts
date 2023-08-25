@@ -35,9 +35,19 @@ export type ContentCategories = {
   discover: Content[] | undefined;
   trending: Content[] | undefined;
   topRated: Content[] | undefined;
+  [key: string]: Content[] | undefined;
 };
 
 export type DataByCategory = {
   category: string;
   data: Content[] | undefined;
+};
+
+export type HomeContentCategories = {
+  anime?: Content[] | undefined;
+  kdrama?: Content[] | undefined;
+  usShows?: Content[] | undefined;
+  animation?: Content[] | undefined;
+  thriller?: Content[] | undefined;
+  comedy?: Content[] | undefined;
 };

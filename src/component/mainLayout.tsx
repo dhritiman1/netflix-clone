@@ -39,25 +39,42 @@ export const MainLayout = ({ title, children }: Props) => {
       </Head>
 
       <header className="sticky top-0 flex w-full justify-center">
-        <nav className="container mx-12 flex h-16 max-w-screen-2xl items-center justify-between text-[16px] font-medium">
+        <nav className="container mx-12 flex h-16 max-w-screen-2xl items-center justify-between text-[16px] font-normal text-zinc-300 ">
           <div className="flex items-center gap-6">
-            <div className="cursor-pointer font-mono text-3xl font-extrabold">
+            <div className="cursor-pointer">
               <Link href="/">
                 <Image
                   className="h-auto w-auto"
                   src="/logo.png"
                   alt="logo"
-                  width={110}
-                  height={35}
+                  width={100}
+                  height={30}
                   priority={true}
                 />
               </Link>
             </div>
             <div className="hidden gap-6 md:flex">
-              <Link href={"/home"}>Home</Link>
-              <Link href={"/tv-show"}>Tv Show</Link>
-              <Link href={"/new-and-popular"}>New & Popular</Link>
-              <Link href={"/my-list"}>My List</Link>
+              <Link className="transition-all hover:text-zinc-200" href={"/"}>
+                Home
+              </Link>
+              <Link
+                className="transition-all hover:text-zinc-200"
+                href={"/tv-show"}
+              >
+                Tv Show
+              </Link>
+              <Link
+                className="transition-all hover:text-zinc-200"
+                href={"/new-and-popular"}
+              >
+                New & Popular
+              </Link>
+              <Link
+                className="transition-all hover:text-zinc-200"
+                href={"/my-list"}
+              >
+                My List
+              </Link>
             </div>
           </div>
           <div className="flex items-center gap-6">

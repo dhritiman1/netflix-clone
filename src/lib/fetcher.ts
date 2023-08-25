@@ -31,12 +31,39 @@ export const getTMDBData = async (type: MediaType) => {
   };
 };
 
-export const getDataByGenre = async (type: MediaType, genreId: number) => {
+export const getDataByGenre = async (
+  type: MediaType,
+  genreId: number,
+  origin?: string,
+  netflix?: boolean
+) => {
   const data = await fetch(
-    `https://api.themoviedb.org/3/${type}/top_rated?api_key=${env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US&with_networks=213&region=US&with_genres=${genreId}`
+    `https://api.themoviedb.org/3/${type}/top_rated?api_key=${
+      env.NEXT_PUBLIC_TMDB_API_KEY
+    }&language=en-US&with_genres=${genreId}${
+      origin ? `&with_origin_country=${origin}` : ""
+    }${netflix ? `&with_networks=213` : ""}`
   );
 
   if (!data.ok) throw new Error(`Failed to fetch data for genreId ${genreId}`);
   const jsonData = (await data.json()) as { results: Content[] };
   return jsonData.results;
+};
+
+export const getTVShowData = async () => {
+  const animeData = await getDataByGenre("tv", 16, "JP", true);
+  const kdramaData = await getDataByGenre("tv", 18, "KR");
+  const usShowsData = await getDataByGenre("tv", 18, "US", true);
+  const animationData = await getDataByGenre("tv", 16, "US", true);
+  const thrillerData = await getDataByGenre("tv", 80, "US");
+  const comedyData = await getDataByGenre("tv", 35, "US");
+
+  return {
+    thriller: thrillerData,
+    comedy: comedyData,
+    anime: animeData,
+    kdrama: kdramaData,
+    usShows: usShowsData,
+    animation: animationData,
+  };
 };
