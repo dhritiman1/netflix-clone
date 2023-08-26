@@ -1,7 +1,9 @@
+"use client";
+
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
-import type { ReactNode } from "react";
+import { useState, type ReactNode, useEffect } from "react";
 import { SearchBar } from "./search";
 import { Button } from "./button";
 import { NotificationBell } from "./icons";
@@ -12,6 +14,18 @@ type Props = {
 };
 
 export const MainLayout = ({ title, children }: Props) => {
+  const [changeNavBg, setChangeNavBg] = useState<boolean>(false);
+  useEffect(() => {
+    const changeNavBgColor = () => {
+      if (window.scrollY >= 60) {
+        setChangeNavBg(true);
+      } else {
+        setChangeNavBg(false);
+      }
+    };
+    window.addEventListener("scroll", changeNavBgColor);
+  }, []);
+
   const LINKS = [
     "FAQ",
     "Help Center",
@@ -38,17 +52,33 @@ export const MainLayout = ({ title, children }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <header className="sticky top-0 flex w-full justify-center">
-        <nav className="container mx-12 flex h-16 max-w-screen-2xl items-center justify-between text-[16px] font-normal text-zinc-300 ">
-          <div className="flex items-center gap-6">
+      <header
+        className={`sticky top-0 z-50 flex w-full justify-center transition-all duration-150  ${
+          changeNavBg
+            ? "bg-[#181818] shadow-xl"
+            : "bg-gradient-to-b from-[#000000a9] to-transparent"
+        }`}
+      >
+        <nav className="container mx-8 flex h-16 max-w-screen-2xl items-center justify-between text-[16px] font-normal text-zinc-300 sm:mx-12 ">
+          <div className="flex items-center gap-2 md:gap-6">
             <div className="cursor-pointer">
-              <Link href="/">
+              <Link href="/" className="hidden lg:block">
                 <Image
                   className="h-auto w-auto"
                   src="/logo.png"
                   alt="logo"
                   width={100}
                   height={30}
+                  priority={true}
+                />
+              </Link>
+              <Link href="/" className="block lg:hidden">
+                <Image
+                  className="h-auto scale-[0.6]"
+                  src="/minimal_logo.png"
+                  alt="logo"
+                  width={21}
+                  height={32}
                   priority={true}
                 />
               </Link>
@@ -76,6 +106,9 @@ export const MainLayout = ({ title, children }: Props) => {
                 My List
               </Link>
             </div>
+            <div className="block md:hidden">
+              <div className="transition-all hover:text-zinc-200">Menu</div>
+            </div>
           </div>
           <div className="flex items-center gap-6">
             <SearchBar />
@@ -94,8 +127,8 @@ export const MainLayout = ({ title, children }: Props) => {
 
       <main className="flex w-full justify-center">{children}</main>
 
-      <footer className="flex w-full justify-center text-zinc-500">
-        <section className="container mx-12 max-w-screen-2xl">
+      <footer className="mt-16 flex w-full justify-center text-zinc-500">
+        <section className="container mx-8 max-w-screen-2xl sm:mx-12">
           <p className="container my-4 max-w-screen-2xl text-[15px]">
             Questions? Call{" "}
             <span className="cursor-pointer hover:text-zinc-400 hover:underline active:opacity-70">

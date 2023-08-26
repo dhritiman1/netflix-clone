@@ -13,6 +13,7 @@ export default function Home() {
 
   const [movieData, setMovieData] = useState<ContentCategories | null>(null);
   const [tvData, setTvData] = useState<ContentCategories | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getData = (async () => {
@@ -20,6 +21,7 @@ export default function Home() {
       setMovieData(movieData);
       const tvData = await getTMDBData("tv");
       setTvData(tvData);
+      setIsLoading(false);
     })();
   }, []);
 
@@ -30,15 +32,17 @@ export default function Home() {
     { category: "Comedies", data: movieData?.comedy },
     { category: "Horror Movies", data: movieData?.horror },
     { category: "Romance Movies", data: movieData?.romance },
-    { category: "Documentaries", data: movieData?.documentary },
   ];
+  // { category: "Documentaries", data: movieData?.documentary },
 
   return (
-    <MainLayout title="home">
-      <section className="container mx-12 mt-12 max-w-screen-2xl">
-        <Hero content={tvData?.discover ?? []} />
-        <Carousels contents={dataByCategory} />
-      </section>
-    </MainLayout>
+    !isLoading && (
+      <MainLayout title="home">
+        <section className="container mx-8 mt-12 max-w-screen-2xl sm:mx-12">
+          <Hero content={tvData?.discover ?? []} />
+          <Carousels contents={dataByCategory} />
+        </section>
+      </MainLayout>
+    )
   );
 }

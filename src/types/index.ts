@@ -49,9 +49,14 @@ export type DataByCategory = {
 
 export type HomeContentCategories = {
   anime?: Content[] | undefined;
+  comedy?: Content[] | undefined;
   kdrama?: Content[] | undefined;
   usShows?: Content[] | undefined;
-  animation?: Content[] | undefined;
   thriller?: Content[] | undefined;
-  comedy?: Content[] | undefined;
+  animation?: Content[] | undefined;
+};
+
+export type NewAndPopularCategories = {
+  popularMovie: Content[] | undefined;
+  popularTv: Content[] | undefined;
 };

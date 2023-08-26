@@ -42,7 +42,7 @@ const TVShows = () => {
 
   return (
     <MainLayout title="TV Shows">
-      <section className="container mx-12 max-w-screen-2xl">
+      <section className="container mx-8 max-w-screen-2xl sm:mx-12">
         <div className="mt-12 flex flex-col gap-2">
           <h1 className="text-[3.5rem] font-medium">TV Shows</h1>
           <p className="w-[35rem] text-base md:text-[1.125rem]">

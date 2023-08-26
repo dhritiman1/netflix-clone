@@ -15,10 +15,10 @@ const Item = ({ title, path }: ItemProps) => {
     <Image
       src={`https://image.tmdb.org/t/p/w500/${path}`}
       alt={title}
-      height={168}
+      height={168 * (16 / 9)}
       width={299}
       loading="lazy"
-      className="aspect-video h-[168px] w-[299px] cursor-pointer object-cover transition-all duration-100 hover:scale-110"
+      className="aspect-video cursor-pointer object-cover transition-all duration-100 hover:scale-110"
     />
   );
 };
@@ -70,7 +70,10 @@ export const Carousel = ({ title, content }: Props) => {
       setIsLeftScrollable(false);
     }
 
-    if (offset >= 4500) {
+    const width =
+      clientWidth <= 420 ? 299 * 20 : clientWidth <= 910 ? 5500 : 4500;
+
+    if (offset >= width) {
       setIsRightScrollable(false);
     } else {
       setIsRightScrollable(true);
