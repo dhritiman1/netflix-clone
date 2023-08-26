@@ -69,6 +69,7 @@ const getDiscoveryDataByGenre = async (type: MediaType, genreId: number) => {
   );
 
   if (!data.ok) throw new Error(`Failed to fetch data for genreId ${genreId}`);
+
   const jsonData = (await data.json()) as { results: Content[] };
   return jsonData.results;
 };
@@ -88,5 +89,38 @@ export const getTVShowData = async () => {
     kdrama: kdramaData,
     usShows: usShowsData,
     animation: animationData,
+  };
+};
+
+export const getUpcomingData = async () => {
+  const data = await fetch(
+    `https://api.themoviedb.org/3/movie/upcoming?api_key=${env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US&page=1&region=US`
+  );
+
+  if (!data.ok) throw new Error("Failed to fetch upcoming content.");
+
+  const jsonData = (await data.json()) as { results: Content[] };
+  return jsonData.results;
+};
+
+export const getPopularData = async (type: MediaType) => {
+  const data = await fetch(
+    `https://api.themoviedb.org/3/trending/${type}/day?api_key=${env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US`
+  );
+
+  if (!data.ok) {
+    throw new Error("Failed to fetch popular content.");
+  }
+
+  const jsonData = (await data.json()) as { results: Content[] };
+  return jsonData.results;
+};
+
+export const getNewAndPopularData = async () => {
+  const popularMovie = await getPopularData("movie");
+  const popularTv = await getPopularData("tv");
+  return {
+    popularMovie: popularMovie,
+    popularTv: popularTv,
   };
 };

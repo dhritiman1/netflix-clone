@@ -1,7 +1,9 @@
+"use client";
+
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
-import type { ReactNode } from "react";
+import { useState, type ReactNode, useEffect } from "react";
 import { SearchBar } from "./search";
 import { Button } from "./button";
 import { NotificationBell } from "./icons";
@@ -12,6 +14,18 @@ type Props = {
 };
 
 export const MainLayout = ({ title, children }: Props) => {
+  const [changeNavBg, setChangeNavBg] = useState<boolean>(false);
+  useEffect(() => {
+    const changeNavBgColor = () => {
+      if (window.scrollY >= 60) {
+        setChangeNavBg(true);
+      } else {
+        setChangeNavBg(false);
+      }
+    };
+    window.addEventListener("scroll", changeNavBgColor);
+  }, []);
+
   const LINKS = [
     "FAQ",
     "Help Center",
@@ -38,7 +52,11 @@ export const MainLayout = ({ title, children }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <header className="sticky top-0 flex w-full justify-center">
+      <header
+        className={`sticky top-0 z-50 flex w-full justify-center transition-all duration-150 ${
+          changeNavBg ? "bg-[#181818] shadow-lg" : ""
+        }`}
+      >
         <nav className="container mx-12 flex h-16 max-w-screen-2xl items-center justify-between text-[16px] font-normal text-zinc-300 ">
           <div className="flex items-center gap-6">
             <div className="cursor-pointer">
@@ -94,7 +112,7 @@ export const MainLayout = ({ title, children }: Props) => {
 
       <main className="flex w-full justify-center">{children}</main>
 
-      <footer className="flex w-full justify-center text-zinc-500">
+      <footer className="mt-16 flex w-full justify-center text-zinc-500">
         <section className="container mx-12 max-w-screen-2xl">
           <p className="container my-4 max-w-screen-2xl text-[15px]">
             Questions? Call{" "}
