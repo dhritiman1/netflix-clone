@@ -26,6 +26,11 @@ export default function Home() {
   const dataByCategory = [
     { category: "Trending", data: movieData?.trending },
     { category: "Top Rated", data: movieData?.topRated },
+    { category: "Action Thrillers", data: movieData?.action },
+    { category: "Comedies", data: movieData?.comedy },
+    { category: "Horror Movies", data: movieData?.horror },
+    { category: "Romance Movies", data: movieData?.romance },
+    { category: "Documentaries", data: movieData?.documentary },
   ];
 
   return (

@@ -1,6 +1,6 @@
 import { Carousels } from "@/component/carouselList";
 import { MainLayout } from "@/component/mainLayout";
-import { getDataByGenre, getTVShowData } from "@/lib/fetcher";
+import { getTVShowData } from "@/lib/fetcher";
 import { useEffect, useState } from "react";
 import type { DataByCategory, HomeContentCategories } from "@/types";
 

@@ -24,25 +24,48 @@ export const getTMDBData = async (type: MediaType) => {
     topRatedData.json(),
   ])) as { results: Content[] }[];
 
+  const action = await getDataByGenre(type, type === "movie" ? 28 : 10759);
+  const comedy = await getDataByGenre(type, 35, undefined, true);
+  const horror = await getDiscoveryDataByGenre(type, 27);
+  const romance = await getDiscoveryDataByGenre(type, 10749);
+  const documentary = await getDiscoveryDataByGenre(type, 99);
+
   return {
     discover: discover?.results,
     trending: trending?.results,
     topRated: topRated?.results,
+    action: action,
+    comedy: comedy,
+    horror: horror,
+    romance: romance,
+    documentary: documentary,
   };
 };
 
-export const getDataByGenre = async (
+const getDataByGenre = async (
   type: MediaType,
   genreId: number,
   origin?: string,
   netflix?: boolean
 ) => {
   const data = await fetch(
-    `https://api.themoviedb.org/3/${type}/top_rated?api_key=${
-      env.NEXT_PUBLIC_TMDB_API_KEY
-    }&language=en-US&with_genres=${genreId}${
-      origin ? `&with_origin_country=${origin}` : ""
-    }${netflix ? `&with_networks=213` : ""}`
+    `https://api.themoviedb.org/3/${type}/top_rated?api_key=` +
+      `${env.NEXT_PUBLIC_TMDB_API_KEY}` +
+      `&language=en-US&with_genres=${genreId}` +
+      `${origin ? `&with_origin_country=${origin}` : ""}` +
+      `${netflix ? `&with_networks=213` : ""}`
+  );
+
+  if (!data.ok) throw new Error(`Failed to fetch data for genreId ${genreId}`);
+  const jsonData = (await data.json()) as { results: Content[] };
+  return jsonData.results;
+};
+
+const getDiscoveryDataByGenre = async (type: MediaType, genreId: number) => {
+  const data = await fetch(
+    `https://api.themoviedb.org/3/discover/${type}?api_key=` +
+      `${env.NEXT_PUBLIC_TMDB_API_KEY}` +
+      `&language=en-US&with_genres=${genreId}`
   );
 
   if (!data.ok) throw new Error(`Failed to fetch data for genreId ${genreId}`);
@@ -52,11 +75,11 @@ export const getDataByGenre = async (
 
 export const getTVShowData = async () => {
   const animeData = await getDataByGenre("tv", 16, "JP", true);
-  const kdramaData = await getDataByGenre("tv", 18, "KR");
+  const kdramaData = await getDataByGenre("tv", 18, "KR", true);
   const usShowsData = await getDataByGenre("tv", 18, "US", true);
   const animationData = await getDataByGenre("tv", 16, "US", true);
   const thrillerData = await getDataByGenre("tv", 80, "US");
-  const comedyData = await getDataByGenre("tv", 35, "US");
+  const comedyData = await getDataByGenre("tv", 35, "US", true);
 
   return {
     thriller: thrillerData,

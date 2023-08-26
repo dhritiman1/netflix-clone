@@ -11,11 +11,11 @@ type Props = {
 
 export const Button = ({ icon, text, type, handleClick }: Props) => {
   const BASE_STYLE =
-    "flex rounded px-4 py-1 font-semibold active:opacity-60 hover:opacity-90 transition-opacity duration-75 items-center";
+    "flex rounded-sm px-4 py-1 font-semibold active:opacity-60 hover:opacity-90 transition-opacity duration-75 items-center";
 
   const styles = {
     neutral: "gap-1 bg-zinc-200 text-zinc-900 ",
-    netflix: "bg-[#E50914] ",
+    netflix: "bg-[#E50914] px-8 ",
     ghost: "rounded bg-transparent border gap-1 ",
   };
 

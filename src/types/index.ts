@@ -35,7 +35,11 @@ export type ContentCategories = {
   discover: Content[] | undefined;
   trending: Content[] | undefined;
   topRated: Content[] | undefined;
-  [key: string]: Content[] | undefined;
+  action: Content[] | undefined;
+  comedy: Content[] | undefined;
+  horror: Content[] | undefined;
+  romance: Content[] | undefined;
+  documentary: Content[] | undefined;
 };
 
 export type DataByCategory = {
