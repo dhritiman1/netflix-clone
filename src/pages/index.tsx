@@ -9,7 +9,7 @@ import { MainLayout } from "@/component/mainLayout";
 import { Carousels } from "@/component/carouselList";
 
 export default function Home() {
-  const hello = api.example.hello.useQuery({ text: "from tRPC" });
+  // const hello = api.example.hello.useQuery({ text: "from tRPC" });
 
   const [movieData, setMovieData] = useState<ContentCategories | null>(null);
   const [tvData, setTvData] = useState<ContentCategories | null>(null);
