@@ -162,7 +162,7 @@ export const MainLayout = ({ title, children }: Props) => {
             </span>
           </p>
           <section className="container max-w-screen-2xl">
-            <ul className="flex max-w-3xl flex-wrap gap-x-6 sm:gap-x-12 ">
+            <ul className="flex max-w-3xl flex-wrap gap-x-6 sm:gap-x-12 sm:gap-y-2 ">
               {LINKS.map((link) => (
                 <li key={link} className="w-[140px] text-[13px] font-light ">
                   <Link

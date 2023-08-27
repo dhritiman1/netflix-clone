@@ -14,29 +14,41 @@ const Hero = ({ data }: HeroProps) => {
   return (
     <section className="w-full">
       <div className="absolute inset-0 -z-20 h-[355px] w-screen sm:h-auto">
-        <Image
-          src={`https://image.tmdb.org/t/p/original/${data?.backdrop_path}`}
-          alt={data?.title ?? data?.original_title ?? "backdrop"}
-          className="h-[unset] w-full object-cover"
-          priority={true}
-          layout="fill"
-        />
+        {data && (
+          <Image
+            src={`https://image.tmdb.org/t/p/original/${data?.backdrop_path}`}
+            alt={data?.title ?? data?.original_title ?? "backdrop"}
+            className="h-[unset] w-full object-cover"
+            priority={true}
+            layout="fill"
+          />
+        )}
       </div>
       <div className="absolute inset-0 -z-10 h-[355px] w-full bg-gradient-to-b from-[#00000000] to-[#181818] sm:h-screen"></div>
-      <div className="absolute inset-0 -z-10 hidden h-screen w-full bg-gradient-to-r from-[#181818] from-0% to-[#00000000] to-70% sm:block"></div>
+      <div className="absolute inset-0 -z-10 hidden h-screen w-full bg-gradient-to-r from-[#181818] from-0% to-transparent to-70% sm:block"></div>
       <section className="mb-20 sm:mt-44">
         <div className="flex h-96 max-w-screen-sm flex-col justify-end gap-2">
           <h1 className="text-3xl font-semibold sm:text-4xl">
-            {data?.title ?? data?.original_title}
+            {data?.title ?? data?.name ?? data?.original_title}
           </h1>
           <div className="flex h-5 gap-2 text-xs font-light opacity-75 sm:text-sm">
-            <span>{data?.release_date.split("-")[0] ?? ""}</span>
+            <span>
+              {data?.release_date
+                ? data?.release_date.split("-")[0]
+                : data?.first_air_date.split("-")[0]}
+            </span>
             {data?.adult !== undefined && (
               <>
                 <span>|</span>
                 <span className="flex items-center justify-center border px-1 text-[0.69rem]">
                   {data.adult ? "A" : "U/A"}
                 </span>
+              </>
+            )}
+            {data?.number_of_seasons && (
+              <>
+                <span>|</span>
+                <span>{data.number_of_seasons} seasons</span>
               </>
             )}
 
@@ -77,8 +89,8 @@ const Title = () => {
   return (
     <MainLayout title={data?.title}>
       <section className="container mx-8 mt-4 max-w-screen-2xl sm:mx-12">
-        {data && <Hero data={data} />}
-        <div className="flex items-center gap-3 rounded-sm bg-gradient-to-r from-[#242424] to-[#101010] px-8 py-2 shadow-lg sm:my-8 sm:mt-44 sm:h-[60px]">
+        <Hero data={data} />
+        <div className="flex items-center gap-3 rounded-sm bg-gradient-to-r from-[#242424] to-[#151515] px-8 py-2 shadow-lg sm:my-8 sm:mt-44 sm:h-[60px]">
           <Image
             src={"/minimal_logo.png"}
             alt="logo"

@@ -15,8 +15,8 @@ const NewAndPopular = () => {
   }, []);
 
   const dataByCategory: DataByCategory[] = [
-    { category: "Popular Movies", data: data?.popularMovie },
-    { category: "Popular TV Shows", data: data?.popularTv },
+    { category: "Popular Movies", data: data?.popularMovie, type: "movie" },
+    { category: "Popular TV Shows", data: data?.popularTv, type: "tv" },
   ];
 
   return (

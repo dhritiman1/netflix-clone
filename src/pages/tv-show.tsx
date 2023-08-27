@@ -17,26 +17,32 @@ const TVShows = () => {
     {
       category: "Suspenseful TV Shows",
       data: data?.thriller,
+      type: "tv",
     },
     {
       category: "TV Comedies",
       data: data?.comedy,
+      type: "tv",
     },
     {
       category: "Anime",
       data: data?.anime,
+      type: "tv",
     },
     {
       category: "K-Dramas",
       data: data?.kdrama,
+      type: "tv",
     },
     {
       category: "US TV Shows",
       data: data?.usShows,
+      type: "tv",
     },
     {
       category: "Animation",
       data: data?.animation,
+      type: "tv",
     },
   ];
 
