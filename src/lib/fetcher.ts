@@ -124,3 +124,17 @@ export const getNewAndPopularData = async () => {
     popularTv: popularTv,
   };
 };
+
+export const getQueryData = async (query: string) => {
+  const data = await fetch(
+    `https://api.themoviedb.org/3/search/multi?` +
+      `api_key=${env.NEXT_PUBLIC_TMDB_API_KEY}` +
+      `&query=${encodeURIComponent(query)}`
+  );
+
+  if (!data.ok) throw new Error("Failed to find shows");
+
+  const jsonData = (await data.json()) as { results: Content[] };
+
+  return jsonData.results.sort((x, y) => x.popularity - y.popularity);
+};

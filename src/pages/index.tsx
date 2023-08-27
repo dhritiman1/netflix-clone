@@ -37,7 +37,7 @@ export default function Home() {
 
   return (
     !isLoading && (
-      <MainLayout title="home">
+      <MainLayout title="Netflix Home">
         <section className="container mx-8 mt-12 max-w-screen-2xl sm:mx-12">
           <Hero content={tvData?.discover ?? []} />
           <Carousels contents={dataByCategory} />

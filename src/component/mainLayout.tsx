@@ -7,6 +7,9 @@ import { useState, type ReactNode, useEffect } from "react";
 import { SearchBar } from "./search";
 import { Button } from "./button";
 import { NotificationBell } from "./icons";
+import { getQueryData } from "@/lib/fetcher";
+import { QueryResult } from "./queryResult";
+import type { Content } from "@/types";
 
 type Props = {
   title: string;
@@ -14,7 +17,10 @@ type Props = {
 };
 
 export const MainLayout = ({ title, children }: Props) => {
-  const [changeNavBg, setChangeNavBg] = useState<boolean>(false);
+  const [changeNavBg, setChangeNavBg] = useState(false);
+  const [query, setQuery] = useState<string>("");
+  const [queryData, setQueryData] = useState<undefined | Content[]>();
+
   useEffect(() => {
     const changeNavBgColor = () => {
       if (window.scrollY >= 60) {
@@ -25,6 +31,12 @@ export const MainLayout = ({ title, children }: Props) => {
     };
     window.addEventListener("scroll", changeNavBgColor);
   }, []);
+
+  const handleQuery = async (input: string) => {
+    const data = await getQueryData(input);
+    setQueryData(data);
+    console.log(data);
+  };
 
   const LINKS = [
     "FAQ",
@@ -53,26 +65,30 @@ export const MainLayout = ({ title, children }: Props) => {
       </Head>
 
       <header
-        className={`sticky top-0 z-50 flex w-full justify-center transition-all duration-150  ${
+        className={`sticky top-0 z-50 flex w-full justify-center transition-all duration-150 ease-in-out ${
           changeNavBg
             ? "bg-[#181818] shadow-xl"
             : "bg-gradient-to-b from-[#000000a9] to-transparent"
         }`}
       >
         <nav className="container mx-8 flex h-16 max-w-screen-2xl items-center justify-between text-[16px] font-normal text-zinc-300 sm:mx-12 ">
-          <div className="flex items-center gap-2 md:gap-6">
+          <div className="flex items-center gap-1 md:gap-6">
             <div className="cursor-pointer">
-              <Link href="/" className="hidden lg:block">
+              <Link href="/" className="hidden md:block">
                 <Image
                   className="h-auto w-auto"
                   src="/logo.png"
                   alt="logo"
-                  width={100}
+                  width={95}
                   height={30}
                   priority={true}
                 />
               </Link>
-              <Link href="/" className="block lg:hidden">
+              <Link
+                href="/"
+                className="block md:hidden"
+                onClick={() => setQuery("")}
+              >
                 <Image
                   className="h-auto scale-[0.6]"
                   src="/minimal_logo.png"
@@ -83,7 +99,7 @@ export const MainLayout = ({ title, children }: Props) => {
                 />
               </Link>
             </div>
-            <div className="hidden gap-6 md:flex">
+            <div className="hidden gap-4 md:flex lg:gap-6">
               <Link className="transition-all hover:text-zinc-200" href={"/"}>
                 Home
               </Link>
@@ -111,7 +127,11 @@ export const MainLayout = ({ title, children }: Props) => {
             </div>
           </div>
           <div className="flex items-center gap-6">
-            <SearchBar />
+            <SearchBar
+              query={query}
+              setQuery={setQuery}
+              handleQuery={handleQuery}
+            />
             <div className="cursor-pointer active:opacity-70">
               <NotificationBell />
             </div>
@@ -125,7 +145,13 @@ export const MainLayout = ({ title, children }: Props) => {
         </nav>
       </header>
 
-      <main className="flex w-full justify-center">{children}</main>
+      <main className="flex w-full justify-center">
+        {query === "" ? (
+          children
+        ) : (
+          <QueryResult data={queryData} query={query} />
+        )}
+      </main>
 
       <footer className="mt-16 flex w-full justify-center text-zinc-500">
         <section className="container mx-8 max-w-screen-2xl sm:mx-12">
