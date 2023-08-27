@@ -12,7 +12,7 @@ import { QueryResult } from "./queryResult";
 import type { Content } from "@/types";
 
 type Props = {
-  title: string;
+  title?: string;
   children: ReactNode;
 };
 
@@ -65,7 +65,7 @@ export const MainLayout = ({ title, children }: Props) => {
       </Head>
 
       <header
-        className={`sticky top-0 z-50 flex w-full justify-center transition-all duration-150 ease-in-out ${
+        className={`sticky top-0 z-50 flex w-full justify-center transition-all duration-150 ease-in-out  ${
           changeNavBg
             ? "bg-[#181818] shadow-xl"
             : "bg-gradient-to-b from-[#000000a9] to-transparent"
@@ -132,7 +132,7 @@ export const MainLayout = ({ title, children }: Props) => {
               setQuery={setQuery}
               handleQuery={handleQuery}
             />
-            <div className="cursor-pointer active:opacity-70">
+            <div className="hidden cursor-pointer active:opacity-70 sm:block">
               <NotificationBell />
             </div>
             <Button
@@ -162,7 +162,7 @@ export const MainLayout = ({ title, children }: Props) => {
             </span>
           </p>
           <section className="container max-w-screen-2xl">
-            <ul className="flex max-w-3xl flex-wrap gap-x-12 ">
+            <ul className="flex max-w-3xl flex-wrap gap-x-6 sm:gap-x-12 ">
               {LINKS.map((link) => (
                 <li key={link} className="w-[140px] text-[13px] font-light ">
                   <Link

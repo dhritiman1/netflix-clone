@@ -13,6 +13,7 @@ export const Carousels = ({ contents }: Props) => {
           key={item.category}
           title={item.category}
           content={item.data ?? []}
+          type={item.type}
         />
       ))}
     </section>

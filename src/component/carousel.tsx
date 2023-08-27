@@ -1,7 +1,8 @@
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { Left, Right } from "./icons";
-import type { Content } from "@/types";
+import type { Content, MediaType } from "@/types";
+import Link from "next/link";
 
 type Direction = "left" | "right";
 
@@ -18,7 +19,7 @@ const Item = ({ title, path }: ItemProps) => {
       height={168 * (16 / 9)}
       width={299}
       loading="lazy"
-      className="aspect-video cursor-pointer object-cover transition-all duration-100 hover:scale-110"
+      className="aspect-video h-auto w-auto cursor-pointer object-cover transition-all duration-100 hover:scale-110"
     />
   );
 };
@@ -48,9 +49,10 @@ const ScrollButton = ({ dir, className, handleScroll }: ScrollButtonProps) => {
 type Props = {
   title: string;
   content: Content[];
+  type: MediaType;
 };
 
-export const Carousel = ({ title, content }: Props) => {
+export const Carousel = ({ title, content, type }: Props) => {
   const [isLeftScrollable, setIsLeftScrollable] = useState(false);
   const [isRightScrollable, setIsRightScrollable] = useState(true);
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -105,11 +107,17 @@ export const Carousel = ({ title, content }: Props) => {
             className="flex h-[168px] gap-1 overflow-y-hidden scrollbar-none"
           >
             {content.map((item) => (
-              <Item
-                key={item.id}
-                title={item.title ?? item.name ?? ""}
-                path={item.backdrop_path ?? ""}
-              />
+              <Link
+                key={item.id + 1}
+                href={`/title/${type}-${item.id}`}
+                className="aspect-video"
+              >
+                <Item
+                  key={item.id}
+                  title={item.title ?? item.name ?? ""}
+                  path={item.backdrop_path ?? ""}
+                />
+              </Link>
             ))}
           </div>
         </div>

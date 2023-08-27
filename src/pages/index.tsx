@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { api } from "@/utils/api";
 import { getTMDBData } from "@/lib/fetcher";
-import type { ContentCategories } from "@/types";
+import type { ContentCategories, DataByCategory } from "@/types";
 
 import { Hero } from "@/component/hero";
 import { MainLayout } from "@/component/mainLayout";
@@ -25,13 +25,13 @@ export default function Home() {
     })();
   }, []);
 
-  const dataByCategory = [
-    { category: "Trending", data: movieData?.trending },
-    { category: "Top Rated", data: movieData?.topRated },
-    { category: "Action Thrillers", data: movieData?.action },
-    { category: "Comedies", data: movieData?.comedy },
-    { category: "Horror Movies", data: movieData?.horror },
-    { category: "Romance Movies", data: movieData?.romance },
+  const dataByCategory: DataByCategory[] = [
+    { category: "Trending", data: movieData?.trending, type: "movie" },
+    { category: "Top Rated", data: movieData?.topRated, type: "movie" },
+    { category: "Action Thrillers", data: movieData?.action, type: "movie" },
+    { category: "Comedies", data: movieData?.comedy, type: "movie" },
+    { category: "Horror Movies", data: movieData?.horror, type: "movie" },
+    { category: "Romance Movies", data: movieData?.romance, type: "movie" },
   ];
   // { category: "Documentaries", data: movieData?.documentary },
 

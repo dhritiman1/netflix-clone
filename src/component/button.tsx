@@ -3,7 +3,7 @@ import { Info, Play } from "./icons";
 type ButtonType = "ghost" | "neutral" | "netflix";
 
 type Props = {
-  icon: string | null;
+  icon?: string | null;
   text: string;
   type: ButtonType;
   handleClick: () => void;
@@ -11,7 +11,7 @@ type Props = {
 
 export const Button = ({ icon, text, type, handleClick }: Props) => {
   const BASE_STYLE =
-    "flex rounded-sm px-4 py-1 font-semibold active:opacity-60 hover:opacity-90 transition-opacity duration-75 items-center";
+    "flex rounded-sm px-4 py-1 font-medium active:opacity-60 hover:opacity-90 transition-opacity duration-75 items-center";
 
   const styles = {
     neutral: "gap-1 bg-zinc-200 text-zinc-900 ",

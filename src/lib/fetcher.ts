@@ -1,16 +1,22 @@
 import { env } from "@/env.mjs";
-import type { Content, MediaType } from "@/types";
+import type { Content, MediaType, TitleData } from "@/types";
 
 export const getTMDBData = async (type: MediaType) => {
   const [discoveryData, trendingData, topRatedData] = await Promise.all([
     fetch(
-      `https://api.themoviedb.org/3/discover/${type}?api_key=${env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&with_networks=213`
+      `https://api.themoviedb.org/3/discover/${type}?` +
+        `api_key=${env.NEXT_PUBLIC_TMDB_API_KEY}` +
+        `&language=en-US&sort_by=popularity.desc&with_networks=213`
     ),
     fetch(
-      `https://api.themoviedb.org/3/trending/${type}/week?api_key=${env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US&with_networks=213&region=US`
+      `https://api.themoviedb.org/3/trending/${type}/week?` +
+        `api_key=${env.NEXT_PUBLIC_TMDB_API_KEY}` +
+        `&language=en-US&with_networks=213&region=US`
     ),
     fetch(
-      `https://api.themoviedb.org/3/${type}/top_rated?api_key=${env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US&with_networks=213&region=US`
+      `https://api.themoviedb.org/3/${type}/top_rated?` +
+        `api_key=${env.NEXT_PUBLIC_TMDB_API_KEY}` +
+        `&language=en-US&with_networks=213&region=US`
     ),
   ]);
 
@@ -94,7 +100,9 @@ export const getTVShowData = async () => {
 
 export const getUpcomingData = async () => {
   const data = await fetch(
-    `https://api.themoviedb.org/3/movie/upcoming?api_key=${env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US&page=1&region=US`
+    `https://api.themoviedb.org/3/movie/upcoming?` +
+      `api_key=${env.NEXT_PUBLIC_TMDB_API_KEY}` +
+      `&language=en-US&page=1&region=US`
   );
 
   if (!data.ok) throw new Error("Failed to fetch upcoming content.");
@@ -105,7 +113,9 @@ export const getUpcomingData = async () => {
 
 export const getPopularData = async (type: MediaType) => {
   const data = await fetch(
-    `https://api.themoviedb.org/3/trending/${type}/day?api_key=${env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US`
+    `https://api.themoviedb.org/3/trending/${type}/day?` +
+      `api_key=${env.NEXT_PUBLIC_TMDB_API_KEY}` +
+      `&language=en-US`
   );
 
   if (!data.ok) {
@@ -137,4 +147,18 @@ export const getQueryData = async (query: string) => {
   const jsonData = (await data.json()) as { results: Content[] };
 
   return jsonData.results.sort((x, y) => x.popularity - y.popularity);
+};
+
+export const getDataById = async (type?: MediaType, id?: string) => {
+  const data = await fetch(
+    `https://api.themoviedb.org/3/${type}/${id}?` +
+      `append_to_response=videos` +
+      `&api_key=${env.NEXT_PUBLIC_TMDB_API_KEY}`
+  );
+
+  if (!data.ok) throw new Error("Failed to fetch title data");
+
+  const jsonData = (await data.json()) as TitleData;
+
+  return jsonData;
 };
