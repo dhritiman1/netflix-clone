@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { Content } from "@/types";
+import Link from "next/link";
 
 type ItemProps = {
   title: string;
@@ -30,11 +31,21 @@ export const QueryResult = ({ data, query }: Props) => {
       <h2 className="pb-10 text-3xl">Results for &quot;{query}&quot;</h2>
       <section className="flex flex-wrap gap-2">
         {data?.map((item) => (
-          <Item
-            key={item.id}
-            title={item.title ?? item.name ?? ""}
-            path={item.backdrop_path ?? item.poster_path ?? ""}
-          />
+          <Link
+            key={item.id + 1}
+            href={`/title/${
+              item.first_air_date === undefined || item.first_air_date === null
+                ? "movie"
+                : "tv"
+            }-${item.id}`}
+            className="aspect-video"
+          >
+            <Item
+              key={item.id}
+              title={item.title ?? item.name ?? ""}
+              path={item.backdrop_path ?? item.poster_path ?? ""}
+            />
+          </Link>
         ))}
       </section>
     </div>

@@ -115,7 +115,7 @@ export const Carousel = ({ title, content, type }: Props) => {
                 <Item
                   key={item.id}
                   title={item.title ?? item.name ?? ""}
-                  path={item.backdrop_path ?? ""}
+                  path={item.backdrop_path ?? item.poster_path ?? ""}
                 />
               </Link>
             ))}
