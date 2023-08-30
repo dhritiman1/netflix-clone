@@ -1,29 +1,52 @@
-import Link from "next/link";
 import { ScrollButton } from "./scrollButton";
 import type { Direction, Video } from "@/types";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import Image from "next/image";
+import { Modal } from "./videoModal";
 
 type VideoItemProps = {
   id: string;
   name: string;
+  setYoutubeId: Dispatch<SetStateAction<string>>;
+  setTitle: Dispatch<SetStateAction<string>>;
+  setShowModal: Dispatch<SetStateAction<boolean>>;
 };
 
-const VideoItem = ({ id, name }: VideoItemProps) => {
+const VideoItem = ({
+  id,
+  name,
+  setYoutubeId,
+  setTitle,
+  setShowModal,
+}: VideoItemProps) => {
+  const toggleModal = () => {
+    setYoutubeId(id);
+    setTitle(name);
+    setShowModal(true);
+  };
   return (
     <div className="flex w-[310px] flex-col gap-2">
-      <div className="flex h-[175px] w-[310px] cursor-pointer items-center overflow-hidden">
+      <div
+        className="flex h-[175px] w-[310px] cursor-pointer items-center overflow-hidden"
+        onClick={() => toggleModal()}
+      >
         <Image
           src={`http://img.youtube.com/vi/${id}/hqdefault.jpg`}
           width={620 / 2}
           height={350 / 2}
           alt={name}
           loading="lazy"
-          className="object-cover"
+          className="object-cover transition-all duration-150 hover:scale-105"
         />
       </div>
 
-      <h3 className="h-auto w-[310] whitespace-break-spaces">{name}</h3>
+      <h3
+        className="h-auto w-[310] whitespace-break-spaces text-sm opacity-80"
+        onClick={() => toggleModal()}
+      >
+        {name}
+      </h3>
     </div>
   );
 };
@@ -34,6 +57,10 @@ type Props = {
 
 export const VideoCarousel = ({ videos }: Props) => {
   const carouselRef = useRef<HTMLDivElement>(null);
+
+  const [youtubeId, setYoutubeId] = useState("");
+  const [title, setTitle] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   const scroll = (dir: Direction) => {
     if (!carouselRef.current) return;
@@ -51,6 +78,13 @@ export const VideoCarousel = ({ videos }: Props) => {
 
   return (
     <div className="mb-5">
+      <Modal
+        id={youtubeId}
+        title={title}
+        show={showModal}
+        setShowModal={setShowModal}
+        setYoutubeId={setYoutubeId}
+      />
       <div className="relative">
         {videos.results.length >= 5 && (
           <>
@@ -70,10 +104,17 @@ export const VideoCarousel = ({ videos }: Props) => {
 
         <div
           ref={carouselRef}
-          className="flex gap-6 overflow-y-hidden scrollbar-none"
+          className="flex gap-1 overflow-y-hidden scrollbar-none"
         >
           {youtubeVideos.slice(0, 10).map((video) => (
-            <VideoItem key={video.id} id={video.key} name={video.name} />
+            <VideoItem
+              key={video.id}
+              id={video.key}
+              name={video.name}
+              setYoutubeId={setYoutubeId}
+              setTitle={setTitle}
+              setShowModal={setShowModal}
+            />
           ))}
         </div>
       </div>

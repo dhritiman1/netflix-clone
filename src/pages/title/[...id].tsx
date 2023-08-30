@@ -1,11 +1,12 @@
-import { MainLayout } from "@/component/mainLayout";
-import { getDataById } from "@/lib/fetcher";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import Image from "next/image";
-import type { MediaType, TitleData } from "@/types";
+import { Season } from "@/types";
+import { useRouter } from "next/router";
 import { Button } from "@/component/button";
+import { getDataById } from "@/lib/fetcher";
+import { useEffect, useState } from "react";
+import { MainLayout } from "@/component/mainLayout";
 import { VideoCarousel } from "@/component/videoGrid";
+import type { MediaType, TitleData } from "@/types";
 
 type HeroProps = {
   data: TitleData | null;
@@ -82,22 +83,41 @@ const Hero = ({ data }: HeroProps) => {
   );
 };
 
+type SeasonProps = {
+  season: Season;
+  i: number;
+};
+
+const Season = ({ season, i }: SeasonProps) => {
+  return (
+    <div className="flex flex-col gap-3">
+      <p className="font-bold">Season {i}</p>
+      <div className="flex flex-col flex-wrap">
+        <p className="font-medium">
+          Release year: {season.air_date.split("-")[0]}
+        </p>
+        <p className="hidden opacity-80 md:block">{season.overview}</p>
+        <p className="opacity-70">Episodes: {season.episode_count}</p>
+      </div>
+    </div>
+  );
+};
+
 const Title = () => {
   const [data, setData] = useState<null | TitleData>(null);
   const router = useRouter();
-  const id = router.query.id;
+  const slug = router.query.id;
+  const mediaType = slug?.[0]?.split("-")[0] as MediaType;
+  const id = slug?.[0]?.split("-")[1];
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const getData = (async () => {
-      const data = await getDataById(
-        id?.[0]?.split("-")[0] as MediaType,
-        id?.[0]?.split("-")[1]
-      );
+      const data = await getDataById(mediaType, id);
 
       setData(data);
     })();
-  }, [id]);
+  }, [id, mediaType]);
 
   return (
     <MainLayout title={data?.title ?? data?.name}>
@@ -127,24 +147,41 @@ const Title = () => {
             </div>
           </div>
         </div>
-        <section className="w-full max-w-screen-2xl">
-          <div className="mb-5 flex items-end gap-3">
-            <h2 className="border-r pr-2 text-3xl font-light">Videos</h2>
-            <h3 className="text-[1.25rem] font-light opacity-70">
-              {data?.title ?? data?.original_title ?? data?.name}
-            </h3>
-          </div>
-          {data?.videos && <VideoCarousel videos={data.videos} />}
-        </section>
-        <section>
+        {data?.videos && (
+          <section className="w-full max-w-screen-2xl">
+            <div className="mb-5 flex items-end gap-3">
+              <h2 className="pr-2 text-3xl font-light sm:border-r">Videos</h2>
+              <h3 className="hidden text-[1.25rem] font-light opacity-70 sm:block">
+                {data?.title ?? data?.original_title ?? data?.name}
+              </h3>
+            </div>
+            <VideoCarousel videos={data.videos} />
+          </section>
+        )}
+        {data?.seasons && (
+          <section>
+            <div className="mb-5 flex items-end gap-3">
+              <h2 className="pr-2 text-3xl font-light sm:border-r">Seasons</h2>
+              <h3 className="hidden text-[1.25rem] font-light opacity-70 sm:block">
+                {data?.title ?? data?.original_title ?? data?.name}
+              </h3>
+            </div>
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+              {data.seasons.map((season, index) => (
+                <Season key={index} i={index + 1} season={season} />
+              ))}
+            </div>
+          </section>
+        )}
+        <section className="mt-5">
           <h2 className="mb-2 pr-2 text-3xl font-light">More Details</h2>
           <div className="flex flex-col gap-2">
-            <div className="flex flex-wrap">
-              <div className="w-[390px]">
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+              <div className="">
                 <p className="opacity-70">Watch offline</p>
                 <p>Available to download</p>
               </div>
-              <div className="w-[390px]">
+              <div className="">
                 <p className="opacity-70">Genres</p>
                 <p>
                   {data?.genres.map((genre) => (
@@ -160,7 +197,7 @@ const Title = () => {
             </div>
             <div>
               <p className="opacity-70">Cast</p>
-              <div className="flex flex-wrap">
+              <div className="grid grid-cols-2 gap-x-3 sm:grid-cols-4">
                 {data?.credits.cast
                   .filter(
                     (c) => c.known_for_department.toLowerCase() === "acting"

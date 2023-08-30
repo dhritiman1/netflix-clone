@@ -156,16 +156,7 @@ export type TitleData = {
   number_of_seasons: number;
   origin_country: string[];
   original_name: string;
-  seasons: {
-    air_date: string;
-    episode_count: number;
-    id: number;
-    name: string;
-    overview: string;
-    poster_path: string;
-    season_number: number;
-    vote_average: number;
-  }[];
+  seasons: Season[];
   type: string;
   credits: {
     cast: {
@@ -198,6 +189,17 @@ export type Video = {
     official: boolean;
     id: string;
   }[];
+};
+
+export type Season = {
+  air_date: string;
+  episode_count: number;
+  id: number;
+  name: string;
+  overview: string;
+  poster_path: string;
+  season_number: number;
+  vote_average: number;
 };
 
 export type Direction = "left" | "right";

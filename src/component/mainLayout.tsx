@@ -145,7 +145,7 @@ export const MainLayout = ({ title, children }: Props) => {
         </nav>
       </header>
 
-      <main className="flex w-full justify-center">
+      <main className="flex w-full justify-center px-8 sm:px-12">
         {query === "" ? (
           children
         ) : (

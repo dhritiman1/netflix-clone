@@ -8,7 +8,7 @@ body {
   color: #eeeeee;
   overflow-x: hidden;
   scroll-behavior: smooth;
-  @apply font-light scrollbar-thin
-    scrollbar-track-transparent scrollbar-thumb-[#0000007e]
-    scrollbar-corner-transparent;
+  @apply font-light
+    scrollbar-thin scrollbar-track-transparent
+    scrollbar-thumb-[#0000007e] scrollbar-corner-transparent;
 }
