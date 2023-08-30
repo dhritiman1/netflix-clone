@@ -6,7 +6,7 @@ type Props = {
   icon?: string | null;
   text: string;
   type: ButtonType;
-  handleClick: () => void;
+  handleClick?: () => void;
 };
 
 export const Button = ({ icon, text, type, handleClick }: Props) => {

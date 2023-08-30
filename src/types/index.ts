@@ -116,20 +116,7 @@ export type TitleData = {
   video: boolean;
   vote_average: number;
   vote_count: number;
-  videos: {
-    results: {
-      iso_639_1: string;
-      iso_3166_1: string;
-      name: string;
-      key: string;
-      published_at: string;
-      site: string;
-      size: number;
-      type: string;
-      official: boolean;
-      id: string;
-    }[];
-  };
+  videos: Video;
   created_by: {
     id: number;
     credit_id: string;
@@ -180,4 +167,37 @@ export type TitleData = {
     vote_average: number;
   }[];
   type: string;
+  credits: {
+    cast: {
+      adult: boolean;
+      gender: number;
+      id: number;
+      known_for_department: string;
+      name: string;
+      original_name: string;
+      popularity: number;
+      profile_path: string | null;
+      cast_id: number;
+      character: string;
+      credit_id: string;
+      order: number;
+    }[];
+  };
 };
+
+export type Video = {
+  results: {
+    iso_639_1: string;
+    iso_3166_1: string;
+    name: string;
+    key: string;
+    published_at: string;
+    site: string;
+    size: number;
+    type: string;
+    official: boolean;
+    id: string;
+  }[];
+};
+
+export type Direction = "left" | "right";

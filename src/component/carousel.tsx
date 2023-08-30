@@ -1,10 +1,8 @@
 import Image from "next/image";
 import { useRef, useState } from "react";
-import { Left, Right } from "./icons";
-import type { Content, MediaType } from "@/types";
+import type { Content, Direction, MediaType } from "@/types";
 import Link from "next/link";
-
-type Direction = "left" | "right";
+import { ScrollButton } from "./scrollButton";
 
 type ItemProps = {
   title: string;
@@ -21,28 +19,6 @@ const Item = ({ title, path }: ItemProps) => {
       loading="lazy"
       className="aspect-video h-auto w-auto cursor-pointer object-cover transition-all duration-100 hover:scale-110"
     />
-  );
-};
-
-type ScrollButtonProps = {
-  dir: Direction;
-  className: string;
-  handleScroll: () => void;
-};
-
-const ScrollButton = ({ dir, className, handleScroll }: ScrollButtonProps) => {
-  return (
-    <button
-      className={
-        "absolute flex h-[168px] w-[3.125rem] items-center justify-center  opacity-100 transition-all duration-100 " +
-        className
-      }
-      onClick={handleScroll}
-    >
-      <div className="text-2xl font-bold">
-        {dir === "left" ? <Left /> : <Right />}
-      </div>
-    </button>
   );
 };
 

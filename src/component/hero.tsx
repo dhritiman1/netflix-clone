@@ -5,6 +5,7 @@ import { Button } from "./button";
 
 import { GENRES } from "@/lib/genres";
 import type { Content } from "@/types";
+import Link from "next/link";
 
 type Props = {
   content: Content[];
@@ -56,12 +57,16 @@ export const Hero = ({ content }: Props) => {
             text="Play"
             handleClick={() => console.log("play trailer")}
           />
-          <Button
-            type="ghost"
-            icon="info"
-            text="More Info"
-            handleClick={() => console.log("show the movie page")}
-          />
+          <Link
+            href={`/title/${
+              randomShow?.first_air_date === undefined ||
+              randomShow?.first_air_date === null
+                ? "movie"
+                : "tv"
+            }-${randomShow?.id}`}
+          >
+            <Button type="ghost" icon="info" text="More Info" />
+          </Link>
         </div>
       </section>
     </section>

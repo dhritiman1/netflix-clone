@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import type { MediaType, TitleData } from "@/types";
 import { Button } from "@/component/button";
+import { VideoCarousel } from "@/component/videoGrid";
 
 type HeroProps = {
   data: TitleData | null;
@@ -64,6 +65,17 @@ const Hero = ({ data }: HeroProps) => {
           <p className="line-clamp-[10] h-auto text-sm sm:text-base">
             {data?.overview}
           </p>
+          {data?.credits && (
+            <p>
+              <span className="opacity-70">Starring:</span>{" "}
+              {data.credits.cast.slice(0, 4).map((cast) => (
+                <span key={cast.id}>
+                  {cast.name}
+                  {data.credits.cast?.[3]?.id !== cast.id ? "," : ""}{" "}
+                </span>
+              ))}
+            </p>
+          )}
         </div>
       </section>
     </section>
@@ -76,6 +88,7 @@ const Title = () => {
   const id = router.query.id;
 
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const getData = (async () => {
       const data = await getDataById(
         id?.[0]?.split("-")[0] as MediaType,
@@ -87,10 +100,10 @@ const Title = () => {
   }, [id]);
 
   return (
-    <MainLayout title={data?.title}>
+    <MainLayout title={data?.title ?? data?.name}>
       <section className="container mx-8 mt-4 max-w-screen-2xl sm:mx-12">
         <Hero data={data} />
-        <div className="flex items-center gap-3 rounded-sm bg-gradient-to-r from-[#242424] to-[#151515] px-8 py-2 shadow-lg sm:my-8 sm:mt-44 sm:h-[60px]">
+        <div className="mb-8 flex items-center gap-3 rounded-sm bg-gradient-to-r from-[#242424] to-[#151515] px-8 py-2 shadow-lg sm:my-8 sm:mt-44 sm:h-[60px]">
           <Image
             src={"/minimal_logo.png"}
             alt="logo"
@@ -114,6 +127,54 @@ const Title = () => {
             </div>
           </div>
         </div>
+        <section className="w-full max-w-screen-2xl">
+          <div className="mb-5 flex items-end gap-3">
+            <h2 className="border-r pr-2 text-3xl font-light">Videos</h2>
+            <h3 className="text-[1.25rem] font-light opacity-70">
+              {data?.title ?? data?.original_title ?? data?.name}
+            </h3>
+          </div>
+          {data?.videos && <VideoCarousel videos={data.videos} />}
+        </section>
+        <section>
+          <h2 className="mb-2 pr-2 text-3xl font-light">More Details</h2>
+          <div className="flex flex-col gap-2">
+            <div className="flex flex-wrap">
+              <div className="w-[390px]">
+                <p className="opacity-70">Watch offline</p>
+                <p>Available to download</p>
+              </div>
+              <div className="w-[390px]">
+                <p className="opacity-70">Genres</p>
+                <p>
+                  {data?.genres.map((genre) => (
+                    <span key={genre.id}>
+                      {genre.name}
+                      {data.genres?.[data.genres.length - 1]?.id !== genre.id
+                        ? ", "
+                        : ""}
+                    </span>
+                  ))}
+                </p>
+              </div>
+            </div>
+            <div>
+              <p className="opacity-70">Cast</p>
+              <div className="flex flex-wrap">
+                {data?.credits.cast
+                  .filter(
+                    (c) => c.known_for_department.toLowerCase() === "acting"
+                  )
+                  .slice(0, 10)
+                  .map((cast) => (
+                    <p key={cast.id} className="w-[390px]">
+                      {cast.name}
+                    </p>
+                  ))}
+              </div>
+            </div>
+          </div>
+        </section>
       </section>
     </MainLayout>
   );
