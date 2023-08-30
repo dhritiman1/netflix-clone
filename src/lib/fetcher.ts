@@ -1,5 +1,5 @@
 import { env } from "@/env.mjs";
-import type { Cast, Content, MediaType, TitleData } from "@/types";
+import type { Content, MediaType, TitleData } from "@/types";
 
 export const getTMDBData = async (type: MediaType) => {
   const [discoveryData, trendingData, topRatedData] = await Promise.all([
@@ -160,16 +160,5 @@ export const getDataById = async (type?: MediaType, id?: string) => {
 
   const jsonData = (await data.json()) as TitleData;
 
-  return jsonData;
-};
-
-export const getCast = async (type?: MediaType, id?: string) => {
-  const data = await fetch(
-    `http://api.themoviedb.org/3/${type}/${id}/credits` +
-      `?api_key=${env.NEXT_PUBLIC_TMDB_API_KEY}`
-  );
-
-  if (data.ok) throw new Error("Failed to fetch credits");
-  const jsonData = (await data.json()) as Cast[];
   return jsonData;
 };
