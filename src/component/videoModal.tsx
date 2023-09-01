@@ -39,7 +39,10 @@ export const Modal = ({
             </div>
           </div>
           <iframe
-            src={`https://www.youtube.com/embed/${id}`}
+            title="Youtube player"
+            sandbox="allow-same-origin allow-forms allow-popups allow-scripts allow-presentation"
+            allow="autoplay"
+            src={`https://www.youtube.com/embed/${id}?autoplay=1`}
             className="z-50 h-full w-full bg-black "
           ></iframe>
         </div>

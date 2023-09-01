@@ -37,7 +37,7 @@ const VideoItem = ({
           height={350 / 2}
           alt={name}
           loading="lazy"
-          className="object-cover transition-all duration-150 hover:scale-105"
+          className="h-auto w-auto object-cover transition-all duration-150 hover:scale-105"
         />
       </div>
 

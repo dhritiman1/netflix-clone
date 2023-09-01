@@ -22,7 +22,7 @@ const Hero = ({ data }: HeroProps) => {
             alt={data?.title ?? data?.original_title ?? "backdrop"}
             className="h-[unset] w-full object-cover"
             priority={true}
-            layout="fill"
+            fill
           />
         )}
       </div>

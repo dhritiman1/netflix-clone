@@ -14,9 +14,9 @@ const Item = ({ title, path }: ItemProps) => {
     <Image
       src={`https://image.tmdb.org/t/p/w500/${path}`}
       alt={title}
-      height={168 * (16 / 9)}
+      height={168}
       width={299}
-      loading="lazy"
+      priority
       className="aspect-video h-auto w-auto cursor-pointer object-cover transition-all duration-100 hover:scale-110"
     />
   );
