@@ -110,6 +110,10 @@ const Title = () => {
   const mediaType = slug?.[0]?.split("-")[0] as MediaType;
   const id = slug?.[0]?.split("-")[1];
 
+  const youtubeVideos = data?.videos.results
+    .filter((video) => video.site.toLowerCase() === "youtube")
+    .reverse();
+
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const getData = (async () => {
@@ -147,7 +151,8 @@ const Title = () => {
             </div>
           </div>
         </div>
-        {data?.videos && (
+
+        {youtubeVideos && youtubeVideos.length > 0 && (
           <section className="w-full max-w-screen-2xl">
             <div className="mb-5 flex items-end gap-3">
               <h2 className="pr-2 text-3xl font-light sm:border-r">Videos</h2>
@@ -155,9 +160,10 @@ const Title = () => {
                 {data?.title ?? data?.original_title ?? data?.name}
               </h3>
             </div>
-            <VideoCarousel videos={data.videos} />
+            <VideoCarousel videos={youtubeVideos} />
           </section>
         )}
+
         {data?.seasons && (
           <section>
             <div className="mb-5 flex items-end gap-3">
@@ -173,6 +179,7 @@ const Title = () => {
             </div>
           </section>
         )}
+
         <section className="mt-5">
           <h2 className="mb-2 pr-2 text-3xl font-light">More Details</h2>
           <div className="flex flex-col gap-2">
@@ -195,6 +202,7 @@ const Title = () => {
                 </p>
               </div>
             </div>
+
             <div>
               <p className="opacity-70">Cast</p>
               <div className="grid grid-cols-2 gap-x-3 sm:grid-cols-4">

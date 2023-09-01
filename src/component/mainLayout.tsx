@@ -63,7 +63,26 @@ export const MainLayout = ({ title, children }: Props) => {
           name="viewport"
           content="width=device-width, initial-scale=1"
         ></meta>
+        <meta name="robots" content="all" />
         <link rel="icon" href="/favicon.ico" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
       </Head>
 
       <header
@@ -83,7 +102,7 @@ export const MainLayout = ({ title, children }: Props) => {
                   alt="logo"
                   width={95}
                   height={30}
-                  priority={true}
+                  loading="lazy"
                 />
               </Link>
               <Link
@@ -95,9 +114,9 @@ export const MainLayout = ({ title, children }: Props) => {
                   className="h-auto w-auto"
                   src="/minimal_logo.png"
                   alt="logo"
-                  width={21}
-                  height={32}
-                  priority={true}
+                  width={16}
+                  height={30}
+                  loading="lazy"
                 />
               </Link>
             </div>
@@ -155,11 +174,11 @@ export const MainLayout = ({ title, children }: Props) => {
         )}
       </main>
 
-      <footer className="mt-16 flex w-full justify-center text-zinc-500">
+      <footer className="mt-16 flex w-full justify-center text-zinc-300">
         <section className="container mx-8 max-w-screen-2xl sm:mx-12">
-          <p className="container my-4 max-w-screen-2xl text-[15px]">
-            Questions? Call{" "}
-            <span className="cursor-pointer hover:text-zinc-400 hover:underline active:opacity-70">
+          <p className="container my-4 max-w-screen-2xl text-[15px] ">
+            <span className="opacity-60">Questions? Call</span>{" "}
+            <span className="cursor-pointer opacity-60 hover:underline hover:opacity-90 active:opacity-70">
               000-000-000-000
             </span>
           </p>
@@ -168,7 +187,7 @@ export const MainLayout = ({ title, children }: Props) => {
               {LINKS.map((link) => (
                 <li key={link} className="w-[140px] text-[13px] font-light ">
                   <Link
-                    className="cursor-pointer transition-all hover:text-zinc-400"
+                    className="cursor-pointer opacity-60 transition-all hover:opacity-90"
                     href="/"
                   >
                     {link}

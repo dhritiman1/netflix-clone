@@ -82,19 +82,22 @@ export const Carousel = ({ title, content, type }: Props) => {
             ref={carouselRef}
             className="flex h-[168px] gap-1 overflow-y-hidden scrollbar-none"
           >
-            {content.map((item) => (
-              <Link
-                key={item.id + 1}
-                href={`/title/${type}-${item.id}`}
-                className="aspect-video"
-              >
-                <Item
-                  key={item.id}
-                  title={item.title ?? item.name ?? ""}
-                  path={item.backdrop_path ?? item.poster_path ?? ""}
-                />
-              </Link>
-            ))}
+            {content.map(
+              (item) =>
+                (item.backdrop_path ?? item.poster_path) && (
+                  <Link
+                    key={item.id + 1}
+                    href={`/title/${type}-${item.id}`}
+                    className="aspect-video"
+                  >
+                    <Item
+                      key={item.id}
+                      title={item.title ?? item.name ?? ""}
+                      path={item.backdrop_path ?? item.poster_path ?? ""}
+                    />
+                  </Link>
+                )
+            )}
           </div>
         </div>
       </div>

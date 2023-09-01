@@ -14,6 +14,7 @@ export const ScrollButton = ({
 }: ScrollButtonProps) => {
   return (
     <button
+      aria-label={dir + "button"}
       className={
         "absolute flex h-[168px] w-[3.125rem] items-center justify-center  opacity-100 transition-all duration-100 " +
         className

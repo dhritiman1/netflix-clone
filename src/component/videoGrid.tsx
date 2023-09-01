@@ -52,7 +52,7 @@ const VideoItem = ({
 };
 
 type Props = {
-  videos: Video;
+  videos: Video[];
 };
 
 export const VideoCarousel = ({ videos }: Props) => {
@@ -72,10 +72,6 @@ export const VideoCarousel = ({ videos }: Props) => {
     carouselRef.current.scrollTo({ left: offset, behavior: "smooth" });
   };
 
-  const youtubeVideos = videos.results
-    .filter((video) => video.site.toLowerCase() === "youtube")
-    .reverse();
-
   return (
     <div className="mb-5">
       <Modal
@@ -86,7 +82,7 @@ export const VideoCarousel = ({ videos }: Props) => {
         setYoutubeId={setYoutubeId}
       />
       <div className="relative">
-        {videos.results.length >= 5 && (
+        {videos.length >= 5 && (
           <>
             <ScrollButton
               className="left-0 top-0 z-10 h-[175px] bg-gradient-to-r from-[#181818] to-[#18181875] hover:from-[#181818] hover:to-[#18181890]"
@@ -106,7 +102,7 @@ export const VideoCarousel = ({ videos }: Props) => {
           ref={carouselRef}
           className="flex gap-1 overflow-y-hidden scrollbar-none"
         >
-          {youtubeVideos.slice(0, 10).map((video) => (
+          {videos.slice(0, 10).map((video) => (
             <VideoItem
               key={video.id}
               id={video.key}

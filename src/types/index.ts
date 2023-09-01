@@ -116,7 +116,7 @@ export type TitleData = {
   video: boolean;
   vote_average: number;
   vote_count: number;
-  videos: Video;
+  videos: { results: Video[] };
   created_by: {
     id: number;
     credit_id: string;
@@ -177,18 +177,16 @@ export type TitleData = {
 };
 
 export type Video = {
-  results: {
-    iso_639_1: string;
-    iso_3166_1: string;
-    name: string;
-    key: string;
-    published_at: string;
-    site: string;
-    size: number;
-    type: string;
-    official: boolean;
-    id: string;
-  }[];
+  iso_639_1: string;
+  iso_3166_1: string;
+  name: string;
+  key: string;
+  published_at: string;
+  site: string;
+  size: number;
+  type: string;
+  official: boolean;
+  id: string;
 };
 
 export type Season = {

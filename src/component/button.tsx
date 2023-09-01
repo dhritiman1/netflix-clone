@@ -15,7 +15,7 @@ export const Button = ({ icon, text, type, handleClick }: Props) => {
 
   const styles = {
     neutral: "gap-1 bg-zinc-200 text-zinc-900 ",
-    netflix: "bg-[#E50914] px-8 ",
+    netflix: "bg-[#E50914] px-8 text-white ",
     ghost: "rounded bg-transparent border gap-1 ",
   };
 
