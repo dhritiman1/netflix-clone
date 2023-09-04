@@ -35,9 +35,9 @@ export const Hero = ({ content }: Props) => {
           <h1 className="text-3xl font-semibold sm:text-4xl">
             {randomShow?.title ?? randomShow?.name}
           </h1>
-          <div className="flex h-5 gap-2 text-xs font-light opacity-75 sm:text-sm">
+          <div className="flex gap-2 text-xs font-light opacity-75 sm:text-sm">
             <span>{randomShow?.first_air_date?.split("-")[0] ?? ""}</span>
-            {randomShow?.genre_ids?.map((id) => (
+            {randomShow?.genre_ids?.slice(0, 2).map((id) => (
               <span key={id + "d"} className="flex gap-2">
                 <span key={id + "s"}>|</span>
                 <span key={id} className="overflow-hidden">
@@ -46,7 +46,7 @@ export const Hero = ({ content }: Props) => {
               </span>
             ))}
           </div>
-          <p className="line-clamp-4 h-[96px] text-sm sm:text-base">
+          <p className="line-clamp-4 text-sm sm:text-base">
             {randomShow?.overview}
           </p>
         </div>

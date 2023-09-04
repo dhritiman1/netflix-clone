@@ -16,7 +16,7 @@ export const ScrollButton = ({
     <button
       aria-label={dir + "button"}
       className={
-        "absolute flex h-[168px] w-[3.125rem] items-center justify-center  opacity-100 transition-all duration-100 " +
+        "absolute hidden h-[168px] w-[3.125rem] items-center  justify-center opacity-100 transition-all duration-100 sm:flex " +
         className
       }
       onClick={handleScroll}

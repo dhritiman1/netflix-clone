@@ -28,7 +28,7 @@ const Hero = ({ data }: HeroProps) => {
       </div>
       <div className="absolute inset-0 -z-10 h-[355px] w-full bg-gradient-to-b from-[#00000000] to-[#181818] sm:h-screen"></div>
       <div className="absolute inset-0 -z-10 hidden h-screen w-full bg-gradient-to-r from-[#181818] from-0% to-transparent to-70% sm:block"></div>
-      <section className="mb-20 sm:mt-44">
+      <section className="mb-20 mt-36 sm:mt-44">
         <div className="flex h-96 max-w-screen-sm flex-col justify-end gap-2">
           <h1 className="text-3xl font-semibold sm:text-4xl">
             {data?.title ?? data?.name ?? data?.original_title}
@@ -66,8 +66,8 @@ const Hero = ({ data }: HeroProps) => {
           <p className="line-clamp-[10] h-auto text-sm sm:text-base">
             {data?.overview}
           </p>
-          {data?.credits && (
-            <p>
+          {data?.credits.cast && (
+            <p className="text-sm sm:text-base">
               <span className="opacity-70">Starring:</span>{" "}
               {data.credits.cast.slice(0, 4).map((cast) => (
                 <span key={cast.id}>
@@ -96,8 +96,12 @@ const Season = ({ season, i }: SeasonProps) => {
         <p className="font-medium">
           Release year: {season.air_date.split("-")[0]}
         </p>
-        <p className="hidden opacity-80 md:block">{season.overview}</p>
-        <p className="opacity-70">Episodes: {season.episode_count}</p>
+        <p className="hidden text-sm opacity-80 sm:text-base md:block">
+          {season.overview}
+        </p>
+        <p className="text-sm opacity-70 sm:text-base">
+          Episodes: {season.episode_count}
+        </p>
       </div>
     </div>
   );
@@ -125,7 +129,7 @@ const Title = () => {
 
   return (
     <MainLayout title={data?.title ?? data?.name}>
-      <section className="container mx-8 mt-4 max-w-screen-2xl sm:mx-12">
+      <section className="container mt-4 max-w-screen-2xl">
         <Hero data={data} />
         <div className="mb-8 flex items-center gap-3 rounded-sm bg-gradient-to-r from-[#242424] to-[#151515] px-8 py-2 shadow-lg sm:my-8 sm:mt-44 sm:h-[60px]">
           <Image
@@ -154,7 +158,7 @@ const Title = () => {
 
         {youtubeVideos && youtubeVideos.length > 0 && (
           <section className="w-full max-w-screen-2xl">
-            <div className="mb-5 flex items-end gap-3">
+            <div className="mb-2 flex items-end gap-3">
               <h2 className="pr-2 text-3xl font-light sm:border-r">Videos</h2>
               <h3 className="hidden text-[1.25rem] font-light opacity-70 sm:block">
                 {data?.title ?? data?.original_title ?? data?.name}
@@ -166,7 +170,7 @@ const Title = () => {
 
         {data?.seasons && (
           <section>
-            <div className="mb-5 flex items-end gap-3">
+            <div className="mb-2 flex items-end gap-3">
               <h2 className="pr-2 text-3xl font-light sm:border-r">Seasons</h2>
               <h3 className="hidden text-[1.25rem] font-light opacity-70 sm:block">
                 {data?.title ?? data?.original_title ?? data?.name}
@@ -186,11 +190,11 @@ const Title = () => {
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
               <div className="">
                 <p className="opacity-70">Watch offline</p>
-                <p>Available to download</p>
+                <p className=" text-sm sm:text-base">Available to download</p>
               </div>
               <div className="">
                 <p className="opacity-70">Genres</p>
-                <p>
+                <p className=" text-sm sm:text-base">
                   {data?.genres.map((genre) => (
                     <span key={genre.id}>
                       {genre.name}
@@ -202,22 +206,21 @@ const Title = () => {
                 </p>
               </div>
             </div>
-
-            <div>
-              <p className="opacity-70">Cast</p>
-              <div className="grid grid-cols-2 gap-x-3 sm:grid-cols-4">
-                {data?.credits.cast
-                  .filter(
-                    (c) => c.known_for_department.toLowerCase() === "acting"
-                  )
-                  .slice(0, 10)
-                  .map((cast) => (
-                    <p key={cast.id} className="w-[390px]">
-                      {cast.name}
-                    </p>
-                  ))}
+            {data?.credits.cast && (
+              <div>
+                <p className="opacity-70">Cast</p>
+                <div className="grid grid-cols-2 gap-x-3 text-sm sm:grid-cols-4 sm:text-base">
+                  {data?.credits.cast
+                    .filter(
+                      (c) => c.known_for_department.toLowerCase() === "acting"
+                    )
+                    .slice(0, 10)
+                    .map((cast) => (
+                      <p key={cast.id}>{cast.name}</p>
+                    ))}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </section>
       </section>

@@ -26,9 +26,9 @@ const VideoItem = ({
     setShowModal(true);
   };
   return (
-    <div className="flex w-[310px] flex-col gap-2">
+    <div className="flex w-[240px] flex-col gap-2 sm:w-[310px]">
       <div
-        className="flex h-[175px] w-[310px] cursor-pointer items-center overflow-hidden"
+        className="flex aspect-video w-[240px] cursor-pointer items-center overflow-hidden sm:w-[310px]"
         onClick={() => toggleModal()}
       >
         <Image
@@ -37,12 +37,12 @@ const VideoItem = ({
           height={350 / 2}
           alt={name}
           loading="lazy"
-          className="h-auto w-auto object-cover transition-all duration-150 hover:scale-105"
+          className="aspect-video h-auto w-auto object-cover transition-all duration-150 hover:scale-105"
         />
       </div>
 
       <h3
-        className="h-auto w-[310] whitespace-break-spaces text-sm opacity-80"
+        className="h-auto whitespace-break-spaces text-sm opacity-80"
         onClick={() => toggleModal()}
       >
         {name}

@@ -88,7 +88,7 @@ export const Carousel = ({ title, content, type }: Props) => {
                   <Link
                     key={item.id + 1}
                     href={`/title/${type}-${item.id}`}
-                    className="aspect-video"
+                    className="aspect-video h-[140.5px] w-[250px] sm:h-auto sm:w-auto"
                   >
                     <Item
                       key={item.id}
