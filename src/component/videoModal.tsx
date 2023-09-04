@@ -23,7 +23,7 @@ export const Modal = ({
       }`}
     >
       <div className=" flex h-screen w-full flex-col items-center justify-center gap-2">
-        <div className="z-[100] flex h-[400px] w-full flex-col gap-3 sm:h-[600px] sm:w-3/5 sm:min-w-[631px]">
+        <div className="z-[100] flex w-full flex-col gap-3 sm:h-[600px] sm:w-3/5 sm:min-w-[631px]">
           <div className="flex justify-between gap-2 px-4 sm:px-0">
             <div className="border-l-2 border-[#E50914] px-2 text-base sm:text-lg">
               {title}
@@ -42,7 +42,7 @@ export const Modal = ({
             title="Youtube player"
             allow="autoplay"
             src={`https://www.youtube.com/embed/${id}?autoplay=1`}
-            className="z-50 h-full w-full bg-black "
+            className="z-50 aspect-video h-full w-full bg-black "
           ></iframe>
         </div>
       </div>

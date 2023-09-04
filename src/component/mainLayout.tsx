@@ -188,7 +188,7 @@ export const MainLayout = ({ title, children }: Props) => {
                 <li key={link} className="w-[140px] text-[13px] font-light ">
                   <Link
                     className="cursor-pointer opacity-60 transition-all hover:opacity-90"
-                    href="/"
+                    href="#"
                   >
                     {link}
                   </Link>
