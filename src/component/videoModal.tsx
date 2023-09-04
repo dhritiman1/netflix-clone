@@ -23,7 +23,7 @@ export const Modal = ({
       }`}
     >
       <div className=" flex h-screen w-full flex-col items-center justify-center gap-2">
-        <div className="z-[100] flex w-full flex-col gap-3 sm:h-[600px] sm:w-3/5 sm:min-w-[631px]">
+        <div className="z-[100] flex w-full flex-col gap-3 sm:w-3/5 sm:min-w-[631px]">
           <div className="flex justify-between gap-2 px-4 sm:px-0">
             <div className="border-l-2 border-[#E50914] px-2 text-base sm:text-lg">
               {title}
