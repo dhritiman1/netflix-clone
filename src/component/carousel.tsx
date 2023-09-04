@@ -80,7 +80,7 @@ export const Carousel = ({ title, content, type }: Props) => {
 
           <div
             ref={carouselRef}
-            className="flex h-[168px] gap-1 overflow-y-hidden scrollbar-none"
+            className="flex h-[140.5px] gap-1 overflow-y-hidden scrollbar-none sm:h-[168px]"
           >
             {content.map(
               (item) =>
