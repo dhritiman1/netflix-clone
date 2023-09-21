@@ -60,7 +60,8 @@ const Hero = ({ data }: HeroProps) => {
               <>
                 <span>|</span>
                 <span>
-                  {`${Math.floor(data.runtime / 60)}h ${data.runtime % 60}m`}
+                  {data.runtime >= 60 && `${Math.floor(data.runtime / 60)}h `}
+                  {data.runtime % 60 > 0 && `${data.runtime % 60}m`}
                 </span>
               </>
             )}

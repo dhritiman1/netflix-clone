@@ -36,9 +36,6 @@ export default function Home() {
     { category: "Romance Movies", data: movieData?.romance, type: "movie" },
     { category: "Documentaries", data: movieData?.documentary, type: "movie" },
   ];
-  // ,
-
-  console.log(user?.id);
 
   return (
     !isLoading && (

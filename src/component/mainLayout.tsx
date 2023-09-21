@@ -1,14 +1,17 @@
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
-import { useState, type ReactNode, useEffect } from "react";
-import { SearchBar } from "./search";
 import { Button } from "./button";
-import { NotificationBell } from "./icons";
-import { getQueryData } from "@/lib/fetcher";
+import { SearchBar } from "./search";
 import { QueryResult } from "./queryResult";
-import type { Content } from "@/types";
+import { NotificationBell } from "./icons";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
+
+import { getQueryData } from "@/lib/fetcher";
+import { useState, useEffect } from "react";
+
+import type { Content } from "@/types";
+import type { ReactNode } from "react";
 
 type Props = {
   title?: string;
@@ -34,7 +37,6 @@ export const MainLayout = ({ title, children }: Props) => {
   const handleQuery = async (input: string) => {
     const data = await getQueryData(input);
     setQueryData(data);
-    console.log(data);
   };
 
   const LINKS = [
@@ -90,7 +92,7 @@ export const MainLayout = ({ title, children }: Props) => {
         className={`sticky top-0 z-50 flex w-full justify-center transition-all duration-150 ease-in-out  ${
           changeNavBg
             ? "bg-[#181818] shadow-xl"
-            : "bg-gradient-to-b from-[#000000a9] to-transparent"
+            : "bg-gradient-to-b from-[#00000063] to-transparent"
         }`}
       >
         <nav className="container mx-8 flex h-16 max-w-screen-2xl items-center justify-between text-[16px] font-normal text-zinc-300 sm:mx-12 ">
@@ -151,20 +153,17 @@ export const MainLayout = ({ title, children }: Props) => {
             </div>
           </div>
           <div className="flex items-center gap-6">
-            <SearchBar
-              query={query}
-              setQuery={setQuery}
-              handleQuery={handleQuery}
-            />
+            {title !== "Plans" && (
+              <SearchBar
+                query={query}
+                setQuery={setQuery}
+                handleQuery={handleQuery}
+              />
+            )}
 
             <SignedOut>
               <Link href="/sign-in">
-                <Button
-                  icon={null}
-                  text="Sign In"
-                  type="netflix"
-                  handleClick={() => console.log("take to login page")}
-                />
+                <Button icon={null} text="Sign In" type="netflix" />
               </Link>
             </SignedOut>
 

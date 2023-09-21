@@ -25,6 +25,8 @@ model User {
     createdAt DateTime  @default(now())
     updatedAt DateTime  @updatedAt
     profiles  Profile[]
+
+    @@index([userId])
 }
 
 model Profile {
@@ -33,21 +35,21 @@ model Profile {
     href      String
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-    myList    MyList[]
+    favorites Shows[]
     User      User     @relation(fields: [userId], references: [id])
     userId    String
 
     @@index([userId])
 }
 
-model MyList {
+model Shows {
     id            String     @id @default(cuid())
     showId        Int // tmdbId
     poster_path   String?
     backdrop_path String?
     media_type    MEDIA_TYPE
-    profile       Profile?   @relation(fields: [profileId], references: [id])
-    profileId     String?
+    profileId     String
+    Profile       Profile?   @relation(fields: [profileId], references: [id])
 
     @@index([profileId])
 }
