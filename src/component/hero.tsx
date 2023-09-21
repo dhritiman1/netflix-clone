@@ -6,6 +6,8 @@ import { Button } from "./button";
 import { GENRES } from "@/lib/genres";
 import type { Content } from "@/types";
 import Link from "next/link";
+import { SignedIn } from "@clerk/nextjs";
+import { Add } from "./icons";
 
 type Props = {
   content: Content[];
@@ -35,6 +37,7 @@ export const Hero = ({ content }: Props) => {
           <h1 className="text-3xl font-semibold sm:text-4xl">
             {randomShow?.title ?? randomShow?.name}
           </h1>
+
           <div className="flex gap-2 text-xs font-light opacity-75 sm:text-sm">
             <span>{randomShow?.first_air_date?.split("-")[0] ?? ""}</span>
             {randomShow?.genre_ids?.slice(0, 2).map((id) => (
@@ -67,6 +70,11 @@ export const Hero = ({ content }: Props) => {
           >
             <Button type="ghost" icon="info" text="More Info" />
           </Link>
+          <SignedIn>
+            <div className="cursor-pointer active:opacity-70">
+              <Add size={34} stroke={1} />
+            </div>
+          </SignedIn>
         </div>
       </section>
     </section>

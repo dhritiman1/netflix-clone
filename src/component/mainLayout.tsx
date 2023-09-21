@@ -8,6 +8,7 @@ import { NotificationBell } from "./icons";
 import { getQueryData } from "@/lib/fetcher";
 import { QueryResult } from "./queryResult";
 import type { Content } from "@/types";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
 
 type Props = {
   title?: string;
@@ -136,12 +137,14 @@ export const MainLayout = ({ title, children }: Props) => {
               >
                 New & Popular
               </Link>
-              <Link
-                className="transition-all hover:text-zinc-200"
-                href={"/my-list"}
-              >
-                My List
-              </Link>
+              <SignedIn>
+                <Link
+                  className="transition-all hover:text-zinc-200"
+                  href={"/my-list"}
+                >
+                  My List
+                </Link>
+              </SignedIn>
             </div>
             <div className="block md:hidden">
               <div className="transition-all hover:text-zinc-200">Menu</div>
@@ -153,15 +156,24 @@ export const MainLayout = ({ title, children }: Props) => {
               setQuery={setQuery}
               handleQuery={handleQuery}
             />
-            <div className="hidden cursor-pointer active:opacity-70 sm:block">
-              <NotificationBell />
-            </div>
-            <Button
-              icon={null}
-              text="Sign In"
-              type="netflix"
-              handleClick={() => console.log("take to login page")}
-            />
+
+            <SignedOut>
+              <Link href="/sign-in">
+                <Button
+                  icon={null}
+                  text="Sign In"
+                  type="netflix"
+                  handleClick={() => console.log("take to login page")}
+                />
+              </Link>
+            </SignedOut>
+
+            <SignedIn>
+              <div className="hidden cursor-pointer active:opacity-70 sm:block">
+                <NotificationBell />
+              </div>
+              <div className="h-3 w-3 bg-black"></div>
+            </SignedIn>
           </div>
         </nav>
       </header>

@@ -11,8 +11,43 @@ datasource db {
     relationMode = "prisma"
 }
 
-model Example {
+enum MEDIA_TYPE {
+    tv
+    movie
+}
+
+model User {
+    id        String    @id @default(cuid())
+    userId    String // userId from clerk
+    name      String
+    email     String?
+    pin       Int?
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    profiles  Profile[]
+}
+
+model Profile {
     id        String   @id @default(cuid())
+    title     String
+    href      String
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+    myList    MyList[]
+    User      User     @relation(fields: [userId], references: [id])
+    userId    String
+
+    @@index([userId])
+}
+
+model MyList {
+    id            String     @id @default(cuid())
+    showId        Int // tmdbId
+    poster_path   String?
+    backdrop_path String?
+    media_type    MEDIA_TYPE
+    profile       Profile?   @relation(fields: [profileId], references: [id])
+    profileId     String?
+
+    @@index([profileId])
 }

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 import { Season } from "@/types";
 import { useRouter } from "next/router";
@@ -6,6 +7,7 @@ import { getDataById } from "@/lib/fetcher";
 import { useEffect, useState } from "react";
 import { MainLayout } from "@/component/mainLayout";
 import { VideoCarousel } from "@/component/videoGrid";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
 import type { MediaType, TitleData } from "@/types";
 
 type HeroProps = {
@@ -63,9 +65,7 @@ const Hero = ({ data }: HeroProps) => {
               </>
             )}
           </div>
-          <p className="line-clamp-[10] h-auto text-sm sm:text-base">
-            {data?.overview}
-          </p>
+          <p className="h-auto text-sm sm:text-base">{data?.overview}</p>
           {data?.credits.cast && (
             <p className="text-sm sm:text-base">
               <span className="opacity-70">Starring:</span>{" "}
@@ -77,6 +77,11 @@ const Hero = ({ data }: HeroProps) => {
               ))}
             </p>
           )}
+          <SignedIn>
+            <div className="my-4">
+              <Button text="Add to List" type="ghost" icon={"add"} />
+            </div>
+          </SignedIn>
         </div>
       </section>
     </section>
@@ -131,30 +136,26 @@ const Title = () => {
     <MainLayout title={data?.title ?? data?.name}>
       <section className="container mt-4 max-w-screen-2xl">
         <Hero data={data} />
-        <div className="mb-8 flex items-center gap-3 rounded-sm bg-gradient-to-r from-[#242424] to-[#151515] px-8 py-2 shadow-lg sm:my-8 sm:mt-44 sm:h-[60px]">
-          <Image
-            src={"/minimal_logo.png"}
-            alt="logo"
-            width={21}
-            height={38}
-            loading="lazy"
-            className="h-[60px] w-[32px] sm:h-[38px] sm:w-[21px]"
-          />
-          <div className="flex flex-col items-center gap-1 sm:w-full sm:flex-row sm:justify-between sm:gap-3">
-            <p className="text-sm font-light sm:text-base">
-              Watch all you want
-            </p>
-            <div className="h-[32px]">
-              <Button
-                type="netflix"
-                text="Join Now"
-                handleClick={() => {
-                  console.log("sign-up");
-                }}
-              />
+        <SignedOut>
+          <div className="mb-8 flex items-center gap-3 rounded-sm bg-gradient-to-r from-[#242424] to-[#151515] px-8 py-2 shadow-lg sm:my-8 sm:mt-44 sm:h-[60px]">
+            <Image
+              src={"/minimal_logo.png"}
+              alt="logo"
+              width={21}
+              height={38}
+              loading="lazy"
+              className="h-[60px] w-[32px] sm:h-[38px] sm:w-[21px]"
+            />
+            <div className="flex flex-col items-center gap-1 sm:w-full sm:flex-row sm:justify-between sm:gap-3">
+              <p className="text-sm font-light sm:text-base">
+                Watch all you want
+              </p>
+              <Link href="/sign-up" className="h-[32px]">
+                <Button type="netflix" text="Join Now" />
+              </Link>
             </div>
           </div>
-        </div>
+        </SignedOut>
 
         {youtubeVideos && youtubeVideos.length > 0 && (
           <section className="w-full max-w-screen-2xl">

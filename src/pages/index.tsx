@@ -7,6 +7,7 @@ import type { ContentCategories, DataByCategory } from "@/types";
 import { Hero } from "@/component/hero";
 import { MainLayout } from "@/component/mainLayout";
 import { Carousels } from "@/component/carouselList";
+import { useUser } from "@clerk/nextjs";
 
 export default function Home() {
   // const hello = api.example.hello.useQuery({ text: "from tRPC" });
@@ -14,6 +15,7 @@ export default function Home() {
   const [movieData, setMovieData] = useState<ContentCategories | null>(null);
   const [tvData, setTvData] = useState<ContentCategories | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const { user } = useUser();
 
   useEffect(() => {
     const getData = (async () => {
@@ -32,8 +34,11 @@ export default function Home() {
     { category: "Comedies", data: movieData?.comedy, type: "movie" },
     { category: "Horror Movies", data: movieData?.horror, type: "movie" },
     { category: "Romance Movies", data: movieData?.romance, type: "movie" },
+    { category: "Documentaries", data: movieData?.documentary, type: "movie" },
   ];
-  // { category: "Documentaries", data: movieData?.documentary },
+  // ,
+
+  console.log(user?.id);
 
   return (
     !isLoading && (

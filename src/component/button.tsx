@@ -1,9 +1,9 @@
-import { Info, Play } from "./icons";
+import { Add, Info, Play } from "./icons";
 
 type ButtonType = "ghost" | "neutral" | "netflix";
 
 type Props = {
-  icon?: string | null;
+  icon?: "info" | "play" | "add" | null;
   text: string;
   type: ButtonType;
   handleClick?: () => void;
@@ -19,10 +19,16 @@ export const Button = ({ icon, text, type, handleClick }: Props) => {
     ghost: "rounded bg-transparent border gap-1 ",
   };
 
+  const icons = {
+    info: <Info />,
+    play: <Play />,
+    add: <Add size={20} stroke={2} />,
+  };
+
   return (
     <>
       <button onClick={handleClick} className={styles[type] + BASE_STYLE}>
-        {icon == "play" ? <Play /> : icon === "info" ? <Info /> : null}
+        {icon ? icons[icon] : null}
         <p>{text}</p>
       </button>
     </>
